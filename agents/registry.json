@@ -22,7 +22,16 @@
     "claude-cua": {
       "command": "python3",
       "args": ["agents/claude-cua/main.py"],
-      "description": "Reference computer-use agent. Needs ANTHROPIC_API_KEY and costs money per step."
+      "description": "Reference computer-use agent: Claude Opus 5, vision only, structured-output actions. Needs ANTHROPIC_API_KEY and costs money per step."
+    },
+    "claude-cua-scripted": {
+      "command": "python3",
+      "args": ["agents/claude-cua/main.py"],
+      "env": {
+        "BELLWETHER_MODEL_TRANSPORT": "scripted",
+        "BELLWETHER_MODEL_SCRIPT": "fixtures/sim-cust-01.script.jsonl"
+      },
+      "description": "The same agent with a canned model. Verifies the whole Python agent through the real harness with no key and no spend; only solves sim-cust-01."
     }
   }
 }

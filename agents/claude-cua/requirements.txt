@@ -1,0 +1,4 @@
+# Only needed for BELLWETHER_MODEL_TRANSPORT=anthropic (the default).
+# The scripted transport, and therefore the whole test suite, needs nothing but the
+# standard library - which is why CI can verify this agent without a key or a spend.
+anthropic>=1.0,<2

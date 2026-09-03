@@ -1,0 +1,13 @@
+{
+  "$comment": "Per-million-token rates used to turn token counts into cost_usd. Quoted rates only; cache multipliers are derived (write ~1.25x input, read ~0.1x input) and labelled as such. Verify against the live price list before publishing a cost figure, and override with BELLWETHER_PRICING=/path/to/pricing.json.",
+  "asOf": "2026-06-24",
+  "source": "https://www.anthropic.com/pricing",
+  "cacheWriteMultiplier": 1.25,
+  "cacheReadMultiplier": 0.1,
+  "models": {
+    "claude-opus-5": { "inputPerMTok": 5.0, "outputPerMTok": 25.0 },
+    "claude-opus-4-8": { "inputPerMTok": 5.0, "outputPerMTok": 25.0 },
+    "claude-sonnet-5": { "inputPerMTok": 2.0, "outputPerMTok": 10.0 },
+    "claude-haiku-4-5": { "inputPerMTok": 1.0, "outputPerMTok": 5.0 }
+  }
+}

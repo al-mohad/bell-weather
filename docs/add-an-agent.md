@@ -104,6 +104,20 @@ bellwether run --driver sim --agent my-agent --k 5
   meaningless. Nothing enforces this — it is the one thing the harness cannot check for
   you.
 
+## Make it testable without spending money
+
+The single most useful thing you can do for anyone who wants to reproduce your number:
+put the model call behind an interface with a canned second implementation.
+
+`agents/claude-cua` does this with two transports selected by
+`BELLWETHER_MODEL_TRANSPORT` — the real API, and a `scripted` one that replays actions
+from a JSONL file. The scripted path needs no key, no SDK and no network, so the entire
+agent runs through the real harness against the real verifier in CI on every commit, and
+what remains unverified is exactly the network call and nothing more.
+
+An agent whose only code path requires a paid API is an agent nobody can check — not
+you after a refactor, not a reviewer, not the person trying to reproduce your result.
+
 ## Compatibility
 
 `agent.init` carries the harness's protocol version and your reply carries yours. The

@@ -1,0 +1,16 @@
+{"kind":"type","rationale":"enter selection","text":"1"}
+{"kind":"key","rationale":"open menu option 1","keys":"Enter"}
+{"kind":"type","rationale":"enter custId","text":"1002"}
+{"kind":"key","rationale":"load the customer record","keys":"Enter"}
+{"kind":"click","rationale":"focus creditLimit","x":424,"y":176}
+{"kind":"key","rationale":"clear creditLimit","keys":"Backspace"}
+{"kind":"key","rationale":"clear creditLimit","keys":"Backspace"}
+{"kind":"key","rationale":"clear creditLimit","keys":"Backspace"}
+{"kind":"key","rationale":"clear creditLimit","keys":"Backspace"}
+{"kind":"key","rationale":"clear creditLimit","keys":"Backspace"}
+{"kind":"key","rationale":"clear creditLimit","keys":"Backspace"}
+{"kind":"key","rationale":"clear creditLimit","keys":"Backspace"}
+{"kind":"key","rationale":"clear creditLimit","keys":"Backspace"}
+{"kind":"type","rationale":"enter creditLimit","text":"42000.00"}
+{"kind":"key","rationale":"commit the credit limit change","keys":"F10"}
+{"kind":"done","rationale":"scripted","summary":"CUSTOMER 1002 UPDATED"}

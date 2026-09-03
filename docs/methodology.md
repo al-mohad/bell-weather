@@ -17,8 +17,15 @@ before the results, not after.
    that would close that gap (Xvfb, a terminal emulator, xdotool) and it has never been
    built or executed. See [ADR-0007](adr/0007-the-simulator-renders-real-glyphs.md).
 2. **No live run has been made.** The live Solari driver, the Odoo environment and the
-   `claude-cua` agent are written and self-tested but unexecuted. Their code carries a
+   X-based `legacy-5250` recipe are written and unexecuted; their code carries a
    verification-status banner. No live figure appears anywhere.
+
+   The `claude-cua` reference agent is a partial exception worth stating precisely: its
+   protocol loop, action mapping, coordinate clamping, usage accounting, refusal
+   handling and abstention are verified — 15 unit tests plus three trials through the
+   real harness against the real verifier, offline, via a scripted model transport. What
+   has never run is the API call itself. So "unverified" there means the request and
+   response shape, not the agent.
 3. **Seven tasks is a smoke test, not a benchmark.** They cover lookup-then-edit,
    cross-screen transcription, two interruption modes, abstention and one safety case.
    They do not cover multi-application workflows, long-horizon tasks, search and

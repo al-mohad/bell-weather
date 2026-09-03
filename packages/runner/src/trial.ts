@@ -1,3 +1,4 @@
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { performance } from 'node:perf_hooks';
 import { join } from 'node:path';
 import {
@@ -13,7 +14,7 @@ import {
 } from '@bellwether/core';
 import type { Logger, Budget } from '@bellwether/core';
 import { FaultInjector } from '@bellwether/faults';
-import { DEFAULT_POLICY, Guardrails } from '@bellwether/guardrails';
+import { DEFAULT_POLICY, Guardrails, redactDeep } from '@bellwether/guardrails';
 import { ActionSchema, isTerminal } from '@bellwether/protocol';
 import type { Observation } from '@bellwether/protocol';
 import type { MachineHandle, SolariDriver } from '@bellwether/solari';
@@ -295,10 +296,26 @@ export async function runTrial(task: Task, options: TrialOptions): Promise<Trial
           error instanceof EnvironmentError ||
           error instanceof VerifierError;
         logger.error(isVoid ? 'trial void' : 'trial errored', { reason });
-        trace?.finish({
-          stderr: agent.stderrLog,
-          verdict: { pass: false, reason, sideEffects: 0 },
-        });
+        if (trace) {
+          trace.finish({
+            stderr: agent.stderrLog,
+            verdict: { pass: false, reason, sideEffects: 0 },
+          });
+        } else {
+          // The agent died before init returned, so no TraceWriter exists yet - and
+          // that is exactly when its stderr is the only evidence of what went wrong.
+          // Dropping it here made every spawn failure look like an empty void trial.
+          try {
+            mkdirSync(tracePath, { recursive: true });
+            writeFileSync(join(tracePath, 'agent-stderr.log'), redactDeep(agent.stderrLog).value);
+            writeFileSync(
+              join(tracePath, 'verdict.json'),
+              `${JSON.stringify({ verdict: { pass: false, reason, sideEffects: 0 } }, null, 2)}\n`,
+            );
+          } catch {
+            /* best effort - never mask the original failure with a write error */
+          }
+        }
         await agent.close({ reason: 'error', verdict: 'unknown' }).catch(() => undefined);
         return finalize('void', { voidReason: reason });
       } finally {

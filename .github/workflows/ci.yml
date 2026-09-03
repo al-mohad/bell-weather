@@ -80,6 +80,35 @@ jobs:
             .bellwether/curve/index.html
           retention-days: 14
 
+  python-agent:
+    name: reference agent (python)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      # Standard library only: no pip install, no anthropic SDK, no API key. The
+      # scripted transport is what makes that possible.
+      - name: Unit tests
+        working-directory: agents/claude-cua
+        run: python3 -m unittest discover -s tests -v
+
+      - name: The whole agent, through the real harness, offline
+        run: |
+          pnpm tsx packages/cli/src/bin.ts run \
+            --driver sim --agent claude-cua-scripted \
+            --tasks sim-cust-01 --k 3 --seed 20260902 \
+            --out .bellwether/cua-scripted
+          pnpm tsx scripts/assert-ceiling.ts .bellwether/cua-scripted/results.json
+
   secrets:
     name: secret scan
     runs-on: ubuntu-latest

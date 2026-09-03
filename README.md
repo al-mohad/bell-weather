@@ -126,6 +126,20 @@ numbers in [`results/`](results/) exactly. If they do not, that is a bug worth a
 Every trial writes a directory you can open: `meta.json`, `trace.jsonl`, one PNG per
 step, the agent's stderr, and the verifier's verdict. The report links to each one.
 
+### Point a vision agent at it
+
+```bash
+export ANTHROPIC_API_KEY=sk-ant-...
+bellwether run --driver sim --agent claude-cua --k 5 --budget-usd 20
+```
+
+`agents/claude-cua` is a Claude Opus 5 computer-use agent: vision only, structured-output
+actions, adaptive thinking, a cached system prefix, bounded image history, refusals mapped
+to abstention, and measured cost. Everything except the network call is verified offline —
+`bellwether run --agent claude-cua-scripted` runs the same agent through the same harness
+with a canned model, no key and no spend. See
+[agents/claude-cua/README.md](agents/claude-cua/README.md).
+
 ### Run your own agent
 
 ```bash
@@ -145,13 +159,16 @@ bellwether run --driver live --agent claude-cua --k 5 \
   --tasks odoo-po-01 --budget-usd 20 --vm-usd-per-minute <from the price list>
 ```
 
-> **Verification status.** The live driver, the Odoo environment, the X-based
-> `legacy-5250` recipe and the `claude-cua` agent are written and self-tested but
-> **have never been executed** — no live run has been made from this repository. Every
-> number above comes from `--driver sim`, and every entrant that produced one read
-> `screenText` rather than the pixels. The frames are legible enough to point a vision
-> agent at, and no one has. The distinction is stated on every affected file and is the
-> reason the driver abstraction exists at all. Do not cite a live number until
+> **Verification status.** Every number above comes from `--driver sim`, and every
+> entrant that produced one read `screenText` rather than the pixels. The frames are
+> legible enough to point a vision agent at, and nobody has yet.
+>
+> Never executed from this repository: the live Solari driver, the Odoo environment, the
+> X-based `legacy-5250` recipe, and the one part of `claude-cua` that talks to the API.
+> Everything else in that agent — protocol loop, action mapping, clamping, usage, refusal
+> handling, abstention — is verified offline through the real harness against the real
+> verifier. The distinction is stated on every affected file and is the reason the driver
+> abstraction exists at all. Do not cite a live number until
 > [docs/methodology.md](docs/methodology.md) records one.
 
 ## The metrics, precisely

@@ -6,7 +6,7 @@ let policy: Erp5250Policy | undefined;
 
 await serveAgent({
   init(params: InitParams) {
-    policy = new Erp5250Policy(parseGoal(params.goal));
+    policy = new Erp5250Policy(parseGoal(params.goal), params.display);
     process.stderr.write(`scripted-baseline: task=${params.taskId} seed=${params.seed}\n`);
     return {
       agent: 'scripted-baseline',

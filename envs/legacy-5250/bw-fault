@@ -1,0 +1,23 @@
+#!/bin/sh
+# Application-level fault hook. See envs/README.md.
+#
+# The application polls this file every 200ms, so a fault is applied by the app itself
+# rather than simulated by the harness — which is the whole reason the hook exists.
+set -eu
+
+case "${1:-}" in
+  modal|session-expiry)
+    printf '%s' "$1" > /var/lib/simapp/fault
+    # Wait for the application to consume it, so the harness never races the fault.
+    i=0
+    while [ -f /var/lib/simapp/fault ]; do
+      i=$((i + 1))
+      [ "$i" -lt 50 ] || { echo "the application did not consume the fault" >&2; exit 1; }
+      sleep 0.05
+    done
+    ;;
+  *)
+    echo "usage: bw-fault modal|session-expiry" >&2
+    exit 2
+    ;;
+esac

@@ -2,8 +2,8 @@
   "id": "flow_sim-po-02_2900bb51",
   "taskId": "sim-po-02",
   "sourceTrialId": "sim-po-02#0",
-  "sourceRunId": "run_20260902T201605_bb27d2",
-  "createdAt": "2026-09-02T20:16:37.767Z",
+  "sourceRunId": "run_20260903T121737_569db9",
+  "createdAt": "2026-09-03T12:18:23.885Z",
   "surface": "desktop",
   "parameters": [],
   "steps": [
@@ -83,8 +83,8 @@
       "index": 6,
       "action": {
         "kind": "click",
-        "x": 68,
-        "y": 136,
+        "x": 136,
+        "y": 272,
         "button": "left",
         "clicks": 1,
         "rationale": "focus item1"
@@ -110,8 +110,8 @@
       "index": 8,
       "action": {
         "kind": "click",
-        "x": 164,
-        "y": 136,
+        "x": 328,
+        "y": 272,
         "button": "left",
         "clicks": 1,
         "rationale": "focus qty1"
@@ -137,8 +137,8 @@
       "index": 10,
       "action": {
         "kind": "click",
-        "x": 228,
-        "y": 136,
+        "x": 456,
+        "y": 272,
         "button": "left",
         "clicks": 1,
         "rationale": "focus price1"
@@ -164,8 +164,8 @@
       "index": 12,
       "action": {
         "kind": "click",
-        "x": 68,
-        "y": 152,
+        "x": 136,
+        "y": 304,
         "button": "left",
         "clicks": 1,
         "rationale": "focus item2"
@@ -191,8 +191,8 @@
       "index": 14,
       "action": {
         "kind": "click",
-        "x": 164,
-        "y": 152,
+        "x": 328,
+        "y": 304,
         "button": "left",
         "clicks": 1,
         "rationale": "focus qty2"
@@ -218,8 +218,8 @@
       "index": 16,
       "action": {
         "kind": "click",
-        "x": 228,
-        "y": 152,
+        "x": 456,
+        "y": 304,
         "button": "left",
         "clicks": 1,
         "rationale": "focus price2"
@@ -245,8 +245,8 @@
       "index": 18,
       "action": {
         "kind": "click",
-        "x": 68,
-        "y": 168,
+        "x": 136,
+        "y": 336,
         "button": "left",
         "clicks": 1,
         "rationale": "focus item3"
@@ -272,8 +272,8 @@
       "index": 20,
       "action": {
         "kind": "click",
-        "x": 164,
-        "y": 168,
+        "x": 328,
+        "y": 336,
         "button": "left",
         "clicks": 1,
         "rationale": "focus qty3"
@@ -299,8 +299,8 @@
       "index": 22,
       "action": {
         "kind": "click",
-        "x": 228,
-        "y": 168,
+        "x": 456,
+        "y": 336,
         "button": "left",
         "clicks": 1,
         "rationale": "focus price3"

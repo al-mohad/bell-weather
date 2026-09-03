@@ -2,8 +2,8 @@
   "id": "flow_sim-cust-01_1d4a6af0",
   "taskId": "sim-cust-01",
   "sourceTrialId": "sim-cust-01#0",
-  "sourceRunId": "run_20260902T201605_bb27d2",
-  "createdAt": "2026-09-02T20:16:37.937Z",
+  "sourceRunId": "run_20260903T121737_569db9",
+  "createdAt": "2026-09-03T12:18:24.135Z",
   "surface": "desktop",
   "parameters": [
     {
@@ -64,8 +64,8 @@
       "index": 4,
       "action": {
         "kind": "click",
-        "x": 212,
-        "y": 88,
+        "x": 424,
+        "y": 176,
         "button": "left",
         "clicks": 1,
         "rationale": "focus creditLimit"

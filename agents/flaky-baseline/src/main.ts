@@ -24,12 +24,20 @@ const P = Number(process.env.BELLWETHER_FLAKY_P ?? 0.08);
 let policy: Erp5250Policy | undefined;
 let rng: Rng | undefined;
 
-function corrupt(action: Action, random: Rng): { action: Action; noticed: boolean } {
+function corrupt(
+  action: Action,
+  random: Rng,
+  cell: { width: number; height: number },
+): { action: Action; noticed: boolean } {
   switch (action.kind) {
     case 'click': {
-      // Off-by-one field: the classic coordinate-grounding error.
-      const dx = random.pick([-64, -32, 32, 64]);
-      return { action: { ...action, x: Math.max(0, action.x + dx) }, noticed: false };
+      // Off-by-one field: the classic coordinate-grounding error. Expressed in cells,
+      // so the error stays the same mistake whatever the surface renders at.
+      const cells = random.pick([-4, -2, 2, 4]);
+      return {
+        action: { ...action, x: Math.max(0, Math.round(action.x + cells * cell.width)) },
+        noticed: false,
+      };
     }
     case 'type': {
       if (action.text.length <= 1) return { action, noticed: true };
@@ -49,7 +57,7 @@ function corrupt(action: Action, random: Rng): { action: Action; noticed: boolea
 
 await serveAgent({
   init(params: InitParams) {
-    policy = new Erp5250Policy(parseGoal(params.goal));
+    policy = new Erp5250Policy(parseGoal(params.goal), params.display);
     rng = makeRng(params.seed);
     process.stderr.write(`flaky-baseline: p=${P} seed=${params.seed}\n`);
     return {
@@ -68,7 +76,7 @@ await serveAgent({
     const intended = policy.next(observation.screenText);
     if (!rng.chance(P)) return { action: intended.action };
 
-    const { action, noticed } = corrupt(intended.action, rng);
+    const { action, noticed } = corrupt(intended.action, rng, policy.cellSize);
     // The agent moves on believing the field is done. Nothing re-checks it.
     if (!noticed && intended.field) policy.trust(intended.field);
     process.stderr.write(

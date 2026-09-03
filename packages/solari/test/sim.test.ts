@@ -1,15 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import { normalizeKey } from '@bellwether/protocol';
 import {
+  CELL_BASE,
   Erp5250Sim,
-  SimDriver,
   SIM_STATE_PATH,
+  SimDriver,
+  cellSize,
+  cellToPixel,
   encodePng,
-  inkMapPng,
   pixelToCell,
+  renderTerminalPng,
 } from '../src/index';
-
-const CELL = { width: 8, height: 16 };
 
 function driveToPoEntry(sim: Erp5250Sim): void {
   sim.type('2');
@@ -140,13 +141,32 @@ describe('png encoding', () => {
     expect(() => encodePng(2, 2, new Uint8Array(5))).toThrow();
   });
 
-  it('renders a character grid at cell resolution', () => {
-    const png = inkMapPng(['ab', 'cd']);
-    expect(png.length).toBeGreaterThan(60);
+  it('renders a grid at exactly one cell per character', () => {
+    const scale = 2;
+    const png = renderTerminalPng(['ab', 'cd'], { scale });
+    // IHDR carries width and height as big-endian uint32 at offsets 16 and 20.
+    expect(png.readUInt32BE(16)).toBe(2 * CELL_BASE.width * scale);
+    expect(png.readUInt32BE(20)).toBe(2 * CELL_BASE.height * scale);
   });
 
-  it('maps pixels to cells consistently with the sim', () => {
-    expect(pixelToCell(8 * 26 + 4, 16 * 8 + 4)).toEqual({ col: 26, row: 8 });
+  it('draws ink for a glyph and none for a blank cell', () => {
+    // A rendered 'W' must be larger than a space: if the font failed to load, every
+    // frame would compress to the same empty rectangle and nothing would notice.
+    expect(renderTerminalPng(['W']).length).toBeGreaterThan(renderTerminalPng([' ']).length);
+  });
+
+  it('round-trips between pixels and cells at any scale', () => {
+    for (const scale of [1, 2, 3]) {
+      const cell = cellSize(scale);
+      for (const [col, row] of [
+        [0, 0],
+        [26, 8],
+        [79, 23],
+      ] as const) {
+        const { x, y } = cellToPixel(col, row, cell);
+        expect(pixelToCell(x, y, cell)).toEqual({ col, row });
+      }
+    }
   });
 });
 
@@ -160,6 +180,10 @@ describe('key normalisation', () => {
   });
 });
 
-it('cell mapping matches the exported constant', () => {
-  expect(pixelToCell(CELL.width, CELL.height)).toEqual({ col: 1, row: 1 });
+it('exposes a display the agent can calibrate a cell from', async () => {
+  const driver = new SimDriver();
+  const desktop = await driver.createDesktop({ template: 'sim-erp5250' });
+  expect(desktop.display.width / 80).toBe(cellSize().width);
+  expect(desktop.display.height / 24).toBe(cellSize().height);
+  await driver.close();
 });

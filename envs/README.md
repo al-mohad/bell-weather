@@ -8,13 +8,22 @@ forked per trial. Environments are **not** built during a benchmark run — see
 
 | environment | surface | status | tasks |
 | --- | --- | --- | --- |
-| `sim-erp5250` | desktop | **verified** — deterministic, runs in-process, no key | 7 |
+| `sim-erp5250` | desktop | **verified** — deterministic, in-process, no key, renders real glyphs | 7 |
 | `odoo-18-seeded` | browser | recipe written, **never seeded or executed** | 1 |
+| `legacy-5250` | desktop | recipe written; the application's logic is self-tested, the **image has never been built** | 0 |
 | `osticket` | browser | planned | 0 |
-| `legacy-5250` | desktop | planned | 0 |
 
 The simulator lives in `packages/solari/src/sim/`, not here, because it is code rather
 than a container. Everything in this directory targets `--driver live`.
+
+`legacy-5250` is the environment that would let a result say something the simulator
+cannot: Xvfb, a real terminal emulator and a real curses application, driven with
+xdotool and observed only through screenshots — no character grid behind it. The
+application (`northwind5250.py`) implements the same screens, field positions and
+commit semantics as the simulator, so every verifier works against it unchanged, and
+its logic is proved by a self-test that runs during the image build. The image itself
+has not been built here. See [ADR-0007](../docs/adr/0007-the-simulator-renders-real-glyphs.md)
+for why the in-process surface was improved instead.
 
 ## The contract
 

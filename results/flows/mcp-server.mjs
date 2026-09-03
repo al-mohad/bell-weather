@@ -7,275 +7,275 @@
 import { FlowCursor } from '@bellwether/compile';
 
 const FLOWS = {
-  'sim-po-01': {
-    id: 'flow_sim-po-01_f795248a',
-    taskId: 'sim-po-01',
-    sourceTrialId: 'sim-po-01#0',
-    sourceRunId: 'run_20260902T201605_bb27d2',
-    createdAt: '2026-09-02T20:16:37.608Z',
-    surface: 'desktop',
-    parameters: [],
-    steps: [
+  "sim-po-01": {
+    "id": "flow_sim-po-01_f795248a",
+    "taskId": "sim-po-01",
+    "sourceTrialId": "sim-po-01#0",
+    "sourceRunId": "run_20260903T121737_569db9",
+    "createdAt": "2026-09-03T12:18:23.731Z",
+    "surface": "desktop",
+    "parameters": [],
+    "steps": [
       {
-        index: 0,
-        action: {
-          kind: 'type',
-          text: '3',
-          rationale: 'enter selection',
+        "index": 0,
+        "action": {
+          "kind": "type",
+          "text": "3",
+          "rationale": "enter selection"
         },
-        expect: {
-          title: 'NORTHWIND 5250               MAIN MENU                         USER: OPER1',
-          message: 'WORKSTATION READY - OPER1',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               MAIN MENU                         USER: OPER1",
+          "message": "WORKSTATION READY - OPER1"
+        }
       },
       {
-        index: 1,
-        action: {
-          kind: 'key',
-          keys: 'Enter',
-          rationale: 'open menu option 3',
+        "index": 1,
+        "action": {
+          "kind": "key",
+          "keys": "Enter",
+          "rationale": "open menu option 3"
         },
-        expect: {
-          title: 'NORTHWIND 5250               MAIN MENU                         USER: OPER1',
-          message: 'WORKSTATION READY - OPER1',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               MAIN MENU                         USER: OPER1",
+          "message": "WORKSTATION READY - OPER1"
+        }
       },
       {
-        index: 2,
-        action: {
-          kind: 'key',
-          keys: 'F3',
-          rationale: 'quote read; return to the menu',
+        "index": 2,
+        "action": {
+          "kind": "key",
+          "keys": "F3",
+          "rationale": "quote read; return to the menu"
         },
-        expect: {
-          title: 'NORTHWIND 5250               VENDOR QUOTES                     USER: OPER1',
-          message: 'F3=Exit   F12=Cancel',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               VENDOR QUOTES                     USER: OPER1",
+          "message": "F3=Exit   F12=Cancel"
+        }
       },
       {
-        index: 3,
-        action: {
-          kind: 'type',
-          text: '2',
-          rationale: 'enter selection',
+        "index": 3,
+        "action": {
+          "kind": "type",
+          "text": "2",
+          "rationale": "enter selection"
         },
-        expect: {
-          title: 'NORTHWIND 5250               MAIN MENU                         USER: OPER1',
-          message: 'RETURNED TO MAIN MENU',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               MAIN MENU                         USER: OPER1",
+          "message": "RETURNED TO MAIN MENU"
+        }
       },
       {
-        index: 4,
-        action: {
-          kind: 'key',
-          keys: 'Enter',
-          rationale: 'open menu option 2',
+        "index": 4,
+        "action": {
+          "kind": "key",
+          "keys": "Enter",
+          "rationale": "open menu option 2"
         },
-        expect: {
-          title: 'NORTHWIND 5250               MAIN MENU                         USER: OPER1',
-          message: 'RETURNED TO MAIN MENU',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               MAIN MENU                         USER: OPER1",
+          "message": "RETURNED TO MAIN MENU"
+        }
       },
       {
-        index: 5,
-        action: {
-          kind: 'type',
-          text: '2001',
-          rationale: 'enter vendorId',
+        "index": 5,
+        "action": {
+          "kind": "type",
+          "text": "2001",
+          "rationale": "enter vendorId"
         },
-        expect: {
-          title: 'NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1',
-          message: 'F10=Confirm   F12=Cancel',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
       },
       {
-        index: 6,
-        action: {
-          kind: 'click',
-          x: 68,
-          y: 136,
-          button: 'left',
-          clicks: 1,
-          rationale: 'focus item1',
+        "index": 6,
+        "action": {
+          "kind": "click",
+          "x": 136,
+          "y": 272,
+          "button": "left",
+          "clicks": 1,
+          "rationale": "focus item1"
         },
-        expect: {
-          title: 'NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1',
-          message: 'F10=Confirm   F12=Cancel',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
       },
       {
-        index: 7,
-        action: {
-          kind: 'type',
-          text: 'AX-100',
-          rationale: 'enter item1',
+        "index": 7,
+        "action": {
+          "kind": "type",
+          "text": "AX-100",
+          "rationale": "enter item1"
         },
-        expect: {
-          title: 'NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1',
-          message: 'F10=Confirm   F12=Cancel',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
       },
       {
-        index: 8,
-        action: {
-          kind: 'click',
-          x: 164,
-          y: 136,
-          button: 'left',
-          clicks: 1,
-          rationale: 'focus qty1',
+        "index": 8,
+        "action": {
+          "kind": "click",
+          "x": 328,
+          "y": 272,
+          "button": "left",
+          "clicks": 1,
+          "rationale": "focus qty1"
         },
-        expect: {
-          title: 'NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1',
-          message: 'F10=Confirm   F12=Cancel',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
       },
       {
-        index: 9,
-        action: {
-          kind: 'type',
-          text: '12',
-          rationale: 'enter qty1',
+        "index": 9,
+        "action": {
+          "kind": "type",
+          "text": "12",
+          "rationale": "enter qty1"
         },
-        expect: {
-          title: 'NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1',
-          message: 'F10=Confirm   F12=Cancel',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
       },
       {
-        index: 10,
-        action: {
-          kind: 'click',
-          x: 228,
-          y: 136,
-          button: 'left',
-          clicks: 1,
-          rationale: 'focus price1',
+        "index": 10,
+        "action": {
+          "kind": "click",
+          "x": 456,
+          "y": 272,
+          "button": "left",
+          "clicks": 1,
+          "rationale": "focus price1"
         },
-        expect: {
-          title: 'NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1',
-          message: 'F10=Confirm   F12=Cancel',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
       },
       {
-        index: 11,
-        action: {
-          kind: 'type',
-          text: '14.25',
-          rationale: 'enter price1',
+        "index": 11,
+        "action": {
+          "kind": "type",
+          "text": "14.25",
+          "rationale": "enter price1"
         },
-        expect: {
-          title: 'NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1',
-          message: 'F10=Confirm   F12=Cancel',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
       },
       {
-        index: 12,
-        action: {
-          kind: 'click',
-          x: 68,
-          y: 152,
-          button: 'left',
-          clicks: 1,
-          rationale: 'focus item2',
+        "index": 12,
+        "action": {
+          "kind": "click",
+          "x": 136,
+          "y": 304,
+          "button": "left",
+          "clicks": 1,
+          "rationale": "focus item2"
         },
-        expect: {
-          title: 'NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1',
-          message: 'F10=Confirm   F12=Cancel',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
       },
       {
-        index: 13,
-        action: {
-          kind: 'type',
-          text: 'BX-220',
-          rationale: 'enter item2',
+        "index": 13,
+        "action": {
+          "kind": "type",
+          "text": "BX-220",
+          "rationale": "enter item2"
         },
-        expect: {
-          title: 'NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1',
-          message: 'F10=Confirm   F12=Cancel',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
       },
       {
-        index: 14,
-        action: {
-          kind: 'click',
-          x: 164,
-          y: 152,
-          button: 'left',
-          clicks: 1,
-          rationale: 'focus qty2',
+        "index": 14,
+        "action": {
+          "kind": "click",
+          "x": 328,
+          "y": 304,
+          "button": "left",
+          "clicks": 1,
+          "rationale": "focus qty2"
         },
-        expect: {
-          title: 'NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1',
-          message: 'F10=Confirm   F12=Cancel',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
       },
       {
-        index: 15,
-        action: {
-          kind: 'type',
-          text: '4',
-          rationale: 'enter qty2',
+        "index": 15,
+        "action": {
+          "kind": "type",
+          "text": "4",
+          "rationale": "enter qty2"
         },
-        expect: {
-          title: 'NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1',
-          message: 'F10=Confirm   F12=Cancel',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
       },
       {
-        index: 16,
-        action: {
-          kind: 'click',
-          x: 228,
-          y: 152,
-          button: 'left',
-          clicks: 1,
-          rationale: 'focus price2',
+        "index": 16,
+        "action": {
+          "kind": "click",
+          "x": 456,
+          "y": 304,
+          "button": "left",
+          "clicks": 1,
+          "rationale": "focus price2"
         },
-        expect: {
-          title: 'NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1',
-          message: 'F10=Confirm   F12=Cancel',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
       },
       {
-        index: 17,
-        action: {
-          kind: 'type',
-          text: '88.00',
-          rationale: 'enter price2',
+        "index": 17,
+        "action": {
+          "kind": "type",
+          "text": "88.00",
+          "rationale": "enter price2"
         },
-        expect: {
-          title: 'NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1',
-          message: 'F10=Confirm   F12=Cancel',
-        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
       },
       {
-        index: 18,
-        action: {
-          kind: 'key',
-          keys: 'F10',
-          rationale: 'confirm the purchase order',
+        "index": 18,
+        "action": {
+          "kind": "key",
+          "keys": "F10",
+          "rationale": "confirm the purchase order"
         },
-        expect: {
-          title: 'NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1',
-          message: 'F10=Confirm   F12=Cancel',
-        },
-      },
-    ],
-  },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      }
+    ]
+  }
 };
 
 const TOOLS = [
   {
-    name: 'run_sim_po_01',
-    description: 'Compiled flow for sim-po-01 (19 steps, recorded from trial sim-po-01#0).',
-    inputSchema: {
-      type: 'object',
-      properties: {},
-      required: [],
-    },
-  },
+    "name": "run_sim_po_01",
+    "description": "Compiled flow for sim-po-01 (19 steps, recorded from trial sim-po-01#0).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  }
 ];
 
 async function openSurface(_taskId) {
@@ -283,9 +283,7 @@ async function openSurface(_taskId) {
 }
 
 async function callTool(name, args) {
-  const taskId = Object.keys(FLOWS).find(
-    (id) => name === 'run_' + id.replace(/[^a-zA-Z0-9_]/g, '_'),
-  );
+  const taskId = Object.keys(FLOWS).find((id) => name === 'run_' + id.replace(/[^a-zA-Z0-9_]/g, '_'));
   if (!taskId) throw new Error('unknown tool ' + name);
   const surface = await openSurface(taskId);
   const cursor = new FlowCursor(FLOWS[taskId], { params: args });
@@ -312,11 +310,7 @@ process.stdin.on('data', async (chunk) => {
       process.stdout.write(JSON.stringify({ jsonrpc: '2.0', id: request.id, result }) + '\n');
     try {
       if (request.method === 'initialize') {
-        send({
-          protocolVersion: '2024-11-05',
-          serverInfo: { name: 'bellwether-flows', version: '0.1.0' },
-          capabilities: { tools: {} },
-        });
+        send({ protocolVersion: '2024-11-05', serverInfo: { name: 'bellwether-flows', version: '0.1.0' }, capabilities: { tools: {} } });
       } else if (request.method === 'tools/list') {
         send({ tools: TOOLS });
       } else if (request.method === 'tools/call') {
@@ -327,11 +321,7 @@ process.stdin.on('data', async (chunk) => {
       }
     } catch (error) {
       process.stdout.write(
-        JSON.stringify({
-          jsonrpc: '2.0',
-          id: request.id,
-          error: { code: -32603, message: String(error) },
-        }) + '\n',
+        JSON.stringify({ jsonrpc: '2.0', id: request.id, error: { code: -32603, message: String(error) } }) + '\n',
       );
     }
   }

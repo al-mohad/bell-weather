@@ -17,7 +17,7 @@ pnpm install && pnpm bench:sim
 ## The result
 
 Three entrants, same seven tasks, five independent attempts each from a byte-identical
-snapshot, seed `20260902`, `--driver sim`. Raw data in [`results/`](results/).
+snapshot, seed `20260902`, `--driver sim`, 2026-09-03. Raw data in [`results/`](results/).
 
 | entrant | what it is | pass@1 | pass^5 | recovery |
 | --- | --- | ---: | ---: | ---: |
@@ -59,6 +59,17 @@ of artifact a benchmark must disclose rather than bank — see
 
 ---
 
+## What the agent actually sees
+
+![A frame from the vendor quotes screen](docs/images/frame-quotes.png)
+
+That is a real observation, produced by the same function the runner calls — an 80×24
+grid rendered with a bitmap font at 1280×768, phosphor on black. The agent gets this
+PNG, and optionally a text rendering it must declare it used.
+
+Frames for the purchase order screen and a mid-task session expiry are in
+[`docs/images/`](docs/images/); regenerate them with `pnpm tsx scripts/render-frame.ts`.
+
 ## Why this shape
 
 Pinetree Research and others are building computer-use agents for enterprise software
@@ -74,7 +85,7 @@ determines a design decision here:
 | Identical starting state per attempt | Every trial forks a pinned snapshot (`sbx.snapshot()` → `fromSnapshot`). No teardown scripts, no cross-trial leakage. |
 | Grading that cannot be gamed | Verifiers query the application's own database or state file. Never an LLM judge, never the screenshot. |
 | Verifiers that can actually fail | Every task ships one known-good state and ≥2 known-bad ones. CI fails the build if a verifier accepts a bad one. |
-| Reproducible by a stranger | The `sim` driver runs the whole suite offline, with no key and no cost. |
+| Reproducible by a stranger | The `sim` driver runs the whole suite offline, with no key, no cost, no container runtime and no network. |
 
 ## What is in the box
 
@@ -130,11 +141,13 @@ bellwether run --driver live --agent claude-cua --k 5 \
   --tasks odoo-po-01 --budget-usd 20 --vm-usd-per-minute <from the price list>
 ```
 
-> **Verification status.** The live driver, the Odoo environment and the `claude-cua`
-> agent are written and self-tested but **have never been executed** — no live run has
-> been made from this repository. Every number above comes from `--driver sim`. The
-> distinction is stated on every affected file and is the reason the driver
-> abstraction exists at all. Do not cite a live number until
+> **Verification status.** The live driver, the Odoo environment, the X-based
+> `legacy-5250` recipe and the `claude-cua` agent are written and self-tested but
+> **have never been executed** — no live run has been made from this repository. Every
+> number above comes from `--driver sim`, and every entrant that produced one read
+> `screenText` rather than the pixels. The frames are legible enough to point a vision
+> agent at, and no one has. The distinction is stated on every affected file and is the
+> reason the driver abstraction exists at all. Do not cite a live number until
 > [docs/methodology.md](docs/methodology.md) records one.
 
 ## The metrics, precisely
@@ -171,13 +184,14 @@ A GUI-only system that had no integration surface now has one. Examples in
 - [Methodology](docs/methodology.md) — **limitations first**, and how not to fool yourself
 - [Threat model](docs/threat-model.md) — what this repo protects and what it does not
 - [Add an agent](docs/add-an-agent.md) · [Add a task](docs/add-a-task.md)
-- [Decision records](docs/adr/) — why the agent boundary is a process, why no LLM judge, and four more
+- [Decision records](docs/adr/) — why the agent boundary is a process, why no LLM judge, and five more
 
 ## Status
 
 Pre-1.0 and honest about it. The simulator path is verified; the live path is not.
-The suite is seven tasks, not seventy. See [docs/methodology.md](docs/methodology.md)
-for the full list of what these numbers do and do not support.
+The suite is seven tasks, not seventy, against one application. See
+[docs/methodology.md](docs/methodology.md) for the full list of what these numbers do
+and do not support — limitations first.
 
 ## Licence
 

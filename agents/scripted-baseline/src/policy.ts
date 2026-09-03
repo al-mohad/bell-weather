@@ -1,6 +1,6 @@
 import type { Action } from '@bellwether/protocol';
-import { fieldCenter, parseScreen } from './screen';
-import type { Screen } from './screen';
+import { cellFromDisplay, fieldCenter, parseScreen } from './screen';
+import type { Display, Screen } from './screen';
 
 export type Goal =
   | { kind: 'credit'; customerId: string; amount: string }
@@ -42,7 +42,19 @@ export class Erp5250Policy {
   /** Fields the agent believes it has already entered correctly. */
   private readonly trusted = new Set<string>();
 
-  constructor(private readonly goal: Goal) {}
+  private readonly cell: { width: number; height: number };
+
+  constructor(
+    private readonly goal: Goal,
+    display: Display = { width: 1280, height: 768 },
+  ) {
+    this.cell = cellFromDisplay(display);
+  }
+
+  /** Character cell in pixels, calibrated from the display at init. */
+  get cellSize(): { width: number; height: number } {
+    return this.cell;
+  }
 
   /** Called by wrappers that corrupt an action: the agent still thinks it worked. */
   trust(field: string): void {
@@ -174,7 +186,7 @@ export class Erp5250Policy {
    */
   private setField(screen: Screen, field: string, value: string): PolicyStep {
     if (screen.focused !== field) {
-      const { x, y } = fieldCenter(screen.kind, field);
+      const { x, y } = fieldCenter(screen.kind, field, this.cell);
       return {
         action: { kind: 'click', x, y, button: 'left', clicks: 1, rationale: `focus ${field}` },
         field,

@@ -51,7 +51,21 @@ export const FIELDS: Record<ScreenKind, FieldPos[]> = {
   UNKNOWN: [],
 };
 
-export const CELL = { width: 8, height: 16 } as const;
+export interface Display {
+  width: number;
+  height: number;
+}
+
+export const GRID = { cols: 80, rows: 24 } as const;
+
+/**
+ * Derive the character cell from the display geometry rather than hard-coding it.
+ * The surface is free to render at any scale, and a flow that assumes a pixel size is
+ * a flow that breaks the first time someone changes the font.
+ */
+export function cellFromDisplay(display: Display): { width: number; height: number } {
+  return { width: display.width / GRID.cols, height: display.height / GRID.rows };
+}
 
 export interface QuoteLine {
   sku: string;
@@ -141,11 +155,15 @@ export function parseScreen(screenText: string): Screen {
   };
 }
 
-export function fieldCenter(kind: ScreenKind, name: string): { x: number; y: number } {
+export function fieldCenter(
+  kind: ScreenKind,
+  name: string,
+  cell: { width: number; height: number },
+): { x: number; y: number } {
   const field = FIELDS[kind].find((entry) => entry.name === name);
   if (!field) throw new Error(`no field ${name} on ${kind}`);
   return {
-    x: field.col * CELL.width + Math.floor(CELL.width / 2),
-    y: field.row * CELL.height + Math.floor(CELL.height / 2),
+    x: Math.round(field.col * cell.width + cell.width / 2),
+    y: Math.round(field.row * cell.height + cell.height / 2),
   };
 }

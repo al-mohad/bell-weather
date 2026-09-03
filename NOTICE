@@ -24,6 +24,21 @@ time, and each remains under its own licence.
   tn5250 (5250 terminal)        GPL-2.0         https://sourceforge.net/projects/tn5250/
   LibreOffice                   MPL-2.0         https://www.libreoffice.org/
 
+---------------------------------------------------------------------------
+Bundled font
+---------------------------------------------------------------------------
+
+  Spleen 8x16                   BSD-2-Clause    https://github.com/fcambus/spleen
+  Copyright (c) 2018-2026, Frederic Cambus
+
+The simulator's terminal surface renders real glyphs, and the bitmaps live in the
+generated file `packages/solari/src/sim/font-8x16.ts`. They are derived from the
+Spleen 8x16 BDF by `scripts/generate-font.ts`; the generated file carries the same
+attribution. Redistribution of the bitmaps is permitted under BSD-2-Clause with
+this notice.
+
+---------------------------------------------------------------------------
+
 The simulated ERP in `packages/solari/src/sim/` is original work under
 Apache-2.0. It is not derived from, and does not reproduce, any commercial
 product: its screens, field names and seed data were written for this project.

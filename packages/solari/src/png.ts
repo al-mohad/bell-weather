@@ -1,4 +1,5 @@
 import { deflateSync } from 'node:zlib';
+import { FONT_HEIGHT, FONT_WIDTH, glyphRows } from './sim/font-8x16';
 
 const CRC_TABLE = (() => {
   const table = new Int32Array(256);
@@ -53,61 +54,111 @@ export function encodePng(width: number, height: number, rgb: Uint8Array): Buffe
   return Buffer.concat([
     Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
     chunk('IHDR', ihdr),
-    chunk('IDAT', deflateSync(raw, { level: 9 })),
+    chunk('IDAT', deflateSync(raw, { level: 6 })),
     chunk('IEND', new Uint8Array(0)),
   ]);
 }
 
-export interface InkMapOptions {
-  cellWidth?: number;
-  cellHeight?: number;
-  ink?: [number, number, number];
-  paper?: [number, number, number];
+export interface TerminalRenderOptions {
+  /** Integer upscale. 1 renders at the font's native 8x16 cell. */
+  scale?: number;
+  ink?: readonly [number, number, number];
+  paper?: readonly [number, number, number];
 }
 
+/** The font's native cell. Everything else derives from it and the scale. */
+export const CELL_BASE = { width: FONT_WIDTH, height: FONT_HEIGHT } as const;
+
+export function cellSize(scale = DEFAULT_SCALE): { width: number; height: number } {
+  return { width: CELL_BASE.width * scale, height: CELL_BASE.height * scale };
+}
+
+export const DEFAULT_SCALE = 2;
+
 /**
- * Renders a character grid as a coarse "ink map": one block per cell, filled where
- * the cell is not blank. It is deliberately low fidelity.
+ * Renders a character grid as real glyphs.
  *
- * The simulator exists to exercise the harness deterministically - scheduling,
- * budgets, faults, verifiers, pass^k arithmetic - not to test a vision model. Any
- * claim about visual grounding must come from a live run against a real surface.
- * Agents on the simulator are expected to read `observation.screenText`.
+ * This is what makes a simulator frame worth showing to a vision model. The earlier
+ * version drew one filled block per non-blank cell, which was enough to exercise the
+ * harness and useless for anything else; a frame that a person cannot read is a frame
+ * no visual-grounding claim can rest on.
+ *
+ * Geometry is exact by construction: cell (col, row) occupies pixels
+ * [col*w, col*w+w) x [row*h, row*h+h), so a click coordinate maps back to a cell with
+ * no calibration. `pixelToCell` is the inverse and the two are asserted against each
+ * other in the tests.
  */
-export function inkMapPng(grid: readonly string[], options: InkMapOptions = {}): Buffer {
-  const cw = options.cellWidth ?? 8;
-  const ch = options.cellHeight ?? 16;
+export function renderTerminalPng(
+  grid: readonly string[],
+  options: TerminalRenderOptions = {},
+): Buffer {
+  const scale = Math.max(1, Math.floor(options.scale ?? DEFAULT_SCALE));
   const cols = grid.reduce((max, row) => Math.max(max, row.length), 1);
   const rows = Math.max(grid.length, 1);
-  const width = cols * cw;
-  const height = rows * ch;
-  const [ir, ig, ib] = options.ink ?? [0x33, 0xff, 0x77];
-  const [pr, pg, pb] = options.paper ?? [0x00, 0x1b, 0x0e];
+  const cell = cellSize(scale);
+  const width = cols * cell.width;
+  const height = rows * cell.height;
+
+  const [ir, ig, ib] = options.ink ?? PHOSPHOR;
+  const [pr, pg, pb] = options.paper ?? SCREEN_BLACK;
 
   const rgb = new Uint8Array(width * height * 3);
-  for (let py = 0; py < height; py++) {
-    const row = grid[Math.floor(py / ch)] ?? '';
-    const insetY = py % ch;
-    for (let px = 0; px < width; px++) {
-      const char = row[Math.floor(px / cw)] ?? ' ';
-      const insetX = px % cw;
-      const filled = char !== ' ' && insetY > 2 && insetY < ch - 3 && insetX < cw - 1;
-      const offset = (py * width + px) * 3;
-      rgb[offset] = filled ? ir : pr;
-      rgb[offset + 1] = filled ? ig : pg;
-      rgb[offset + 2] = filled ? ib : pb;
+  // Paint the ground first; glyphs are then stamped over it.
+  for (let offset = 0; offset < rgb.length; offset += 3) {
+    rgb[offset] = pr;
+    rgb[offset + 1] = pg;
+    rgb[offset + 2] = pb;
+  }
+
+  for (let row = 0; row < rows; row++) {
+    const line = grid[row] ?? '';
+    for (let col = 0; col < cols; col++) {
+      const code = line.charCodeAt(col);
+      if (Number.isNaN(code) || code === 32) continue;
+      const glyph = glyphRows(code);
+      for (let gy = 0; gy < CELL_BASE.height; gy++) {
+        const bits = glyph[gy] ?? 0;
+        if (bits === 0) continue;
+        for (let gx = 0; gx < CELL_BASE.width; gx++) {
+          if ((bits & (0x80 >> gx)) === 0) continue;
+          const originX = col * cell.width + gx * scale;
+          const originY = row * cell.height + gy * scale;
+          for (let dy = 0; dy < scale; dy++) {
+            let offset = ((originY + dy) * width + originX) * 3;
+            for (let dx = 0; dx < scale; dx++) {
+              rgb[offset] = ir;
+              rgb[offset + 1] = ig;
+              rgb[offset + 2] = ib;
+              offset += 3;
+            }
+          }
+        }
+      }
     }
   }
+
   return encodePng(width, height, rgb);
 }
 
-export const CELL = { width: 8, height: 16 } as const;
+const PHOSPHOR: readonly [number, number, number] = [0x3b, 0xff, 0x7a];
+const SCREEN_BLACK: readonly [number, number, number] = [0x03, 0x14, 0x0b];
 
-/** Pixel coordinate -> character cell. The simulator's only coordinate mapping. */
-export function pixelToCell(x: number, y: number): { col: number; row: number } {
-  return { col: Math.floor(x / CELL.width), row: Math.floor(y / CELL.height) };
+/** Pixel coordinate -> character cell. The inverse of the renderer's geometry. */
+export function pixelToCell(
+  x: number,
+  y: number,
+  cell: { width: number; height: number } = cellSize(),
+): { col: number; row: number } {
+  return { col: Math.floor(x / cell.width), row: Math.floor(y / cell.height) };
 }
 
-export function cellToPixel(col: number, row: number): { x: number; y: number } {
-  return { x: col * CELL.width + CELL.width / 2, y: row * CELL.height + CELL.height / 2 };
+export function cellToPixel(
+  col: number,
+  row: number,
+  cell: { width: number; height: number } = cellSize(),
+): { x: number; y: number } {
+  return {
+    x: col * cell.width + Math.floor(cell.width / 2),
+    y: row * cell.height + Math.floor(cell.height / 2),
+  };
 }

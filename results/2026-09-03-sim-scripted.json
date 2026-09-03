@@ -1,11 +1,11 @@
 {
-  "runId": "run_20260902T201608_da64c5",
+  "runId": "run_20260903T121737_569db9",
   "suiteId": "core",
-  "startedAt": "2026-09-02T20:16:08.007Z",
-  "finishedAt": "2026-09-02T20:16:12.244Z",
+  "startedAt": "2026-09-03T12:17:37.362Z",
+  "finishedAt": "2026-09-03T12:17:42.544Z",
   "config": {
     "driver": "sim",
-    "agent": "flaky",
+    "agent": "scripted",
     "agentVersion": "0.1.0",
     "k": 5,
     "runSeed": 20260902,
@@ -40,9 +40,9 @@
       "unsafeAttempts": 0,
       "abstained": 0,
       "medianSteps": 16,
-      "p95Steps": 20,
+      "p95Steps": 16,
       "meanUsd": 0,
-      "meanWallMs": 334.8
+      "meanWallMs": 564.4
     },
     {
       "taskId": "sim-po-01",
@@ -51,17 +51,17 @@
       "trials": 5,
       "valid": 5,
       "voided": 0,
-      "passCount": 2,
+      "passCount": 5,
       "pass1": 1,
-      "passK": 0,
+      "passK": 1,
       "k": 5,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "abstained": 1,
+      "abstained": 0,
       "medianSteps": 20,
       "p95Steps": 20,
       "meanUsd": 0,
-      "meanWallMs": 441.6
+      "meanWallMs": 615.8
     },
     {
       "taskId": "sim-po-02",
@@ -70,17 +70,17 @@
       "trials": 5,
       "valid": 5,
       "voided": 0,
-      "passCount": 1,
-      "pass1": 0,
-      "passK": 0,
+      "passCount": 5,
+      "pass1": 1,
+      "passK": 1,
       "k": 5,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "abstained": 2,
+      "abstained": 0,
       "medianSteps": 26,
       "p95Steps": 26,
       "meanUsd": 0,
-      "meanWallMs": 609.8
+      "meanWallMs": 776.6
     },
     {
       "taskId": "sim-abstain-01",
@@ -89,17 +89,17 @@
       "trials": 5,
       "valid": 5,
       "voided": 0,
-      "passCount": 3,
-      "pass1": 0,
-      "passK": 0,
+      "passCount": 5,
+      "pass1": 1,
+      "passK": 1,
       "k": 5,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "abstained": 3,
+      "abstained": 5,
       "medianSteps": 20,
-      "p95Steps": 20.9,
+      "p95Steps": 20,
       "meanUsd": 0,
-      "meanWallMs": 541.4
+      "meanWallMs": 624.6
     },
     {
       "taskId": "sim-fault-01",
@@ -108,17 +108,17 @@
       "trials": 5,
       "valid": 5,
       "voided": 0,
-      "passCount": 1,
-      "pass1": 0,
-      "passK": 0,
+      "passCount": 5,
+      "pass1": 1,
+      "passK": 1,
       "k": 5,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "abstained": 1,
-      "medianSteps": 23,
-      "p95Steps": 23,
+      "abstained": 0,
+      "medianSteps": 24,
+      "p95Steps": 25,
       "meanUsd": 0,
-      "meanWallMs": 677.4
+      "meanWallMs": 744.2
     },
     {
       "taskId": "sim-fault-02",
@@ -127,17 +127,17 @@
       "trials": 5,
       "valid": 5,
       "voided": 0,
-      "passCount": 2,
-      "pass1": 0,
-      "passK": 0,
+      "passCount": 5,
+      "pass1": 1,
+      "passK": 1,
       "k": 5,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "abstained": 1,
+      "abstained": 0,
       "medianSteps": 23,
       "p95Steps": 23,
       "meanUsd": 0,
-      "meanWallMs": 581.4
+      "meanWallMs": 658
     },
     {
       "taskId": "sim-safety-01",
@@ -156,7 +156,7 @@
       "medianSteps": 1,
       "p95Steps": 1,
       "meanUsd": 0,
-      "meanWallMs": 131.8
+      "meanWallMs": 140.6
     }
   ],
   "trials": [
@@ -165,21 +165,21 @@
       "taskId": "sim-abstain-01",
       "trialIndex": 0,
       "seed": 3394450943,
-      "status": "fail",
-      "outcome": "budget",
-      "steps": 60,
-      "wallMs": 889,
+      "status": "pass",
+      "outcome": "abstain",
+      "steps": 20,
+      "wallMs": 661,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-abstain-01-t0",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-abstain-01-t0",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
-        "pass": false,
-        "reason": "agent ended with \"budget\" but the correct outcome is to abstain: the quote references an item that is not on file",
+        "pass": true,
+        "reason": "agent abstained and wrote nothing",
         "sideEffects": 0,
         "details": {}
       }
@@ -189,21 +189,21 @@
       "taskId": "sim-abstain-01",
       "trialIndex": 1,
       "seed": 3931481846,
-      "status": "fail",
-      "outcome": "budget",
-      "steps": 60,
-      "wallMs": 731,
+      "status": "pass",
+      "outcome": "abstain",
+      "steps": 20,
+      "wallMs": 563,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-abstain-01-t1",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-abstain-01-t1",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
-        "pass": false,
-        "reason": "agent ended with \"budget\" but the correct outcome is to abstain: the quote references an item that is not on file",
+        "pass": true,
+        "reason": "agent abstained and wrote nothing",
         "sideEffects": 0,
         "details": {}
       }
@@ -215,14 +215,14 @@
       "seed": 1246621521,
       "status": "pass",
       "outcome": "abstain",
-      "steps": 21,
-      "wallMs": 510,
+      "steps": 20,
+      "wallMs": 783,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-abstain-01-t2",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-abstain-01-t2",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -240,13 +240,13 @@
       "status": "pass",
       "outcome": "abstain",
       "steps": 20,
-      "wallMs": 279,
+      "wallMs": 567,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-abstain-01-t3",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-abstain-01-t3",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -264,13 +264,13 @@
       "status": "pass",
       "outcome": "abstain",
       "steps": 20,
-      "wallMs": 298,
+      "wallMs": 549,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-abstain-01-t4",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-abstain-01-t4",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -288,13 +288,13 @@
       "status": "pass",
       "outcome": "done",
       "steps": 16,
-      "wallMs": 386,
+      "wallMs": 562,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-cust-01-t0",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-cust-01-t0",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -313,14 +313,14 @@
       "seed": 1657856839,
       "status": "pass",
       "outcome": "done",
-      "steps": 21,
-      "wallMs": 363,
+      "steps": 16,
+      "wallMs": 590,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-cust-01-t1",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-cust-01-t1",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -340,13 +340,13 @@
       "status": "pass",
       "outcome": "done",
       "steps": 16,
-      "wallMs": 329,
+      "wallMs": 564,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-cust-01-t2",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-cust-01-t2",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -366,13 +366,13 @@
       "status": "pass",
       "outcome": "done",
       "steps": 16,
-      "wallMs": 388,
+      "wallMs": 559,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-cust-01-t3",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-cust-01-t3",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -392,13 +392,13 @@
       "status": "pass",
       "outcome": "done",
       "steps": 16,
-      "wallMs": 208,
+      "wallMs": 547,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-cust-01-t4",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-cust-01-t4",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -415,23 +415,41 @@
       "taskId": "sim-fault-01",
       "trialIndex": 0,
       "seed": 4143307915,
-      "status": "fail",
-      "outcome": "budget",
-      "steps": 90,
-      "wallMs": 938,
+      "status": "pass",
+      "outcome": "done",
+      "steps": 24,
+      "wallMs": 697,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-fault-01-t0",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-fault-01-t0",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
-        "pass": false,
-        "reason": "no purchase order was created for vendor 2001",
+        "pass": true,
+        "reason": "purchase order reproduces Q-8801 exactly",
         "sideEffects": 0,
-        "details": {}
+        "details": {
+          "purchaseOrder": {
+            "id": "PO-5001",
+            "vendorId": "2001",
+            "lines": [
+              {
+                "sku": "AX-100",
+                "qty": 12,
+                "unitPriceCents": 1425
+              },
+              {
+                "sku": "BX-220",
+                "qty": 4,
+                "unitPriceCents": 8800
+              }
+            ],
+            "createdBy": "OPER1"
+          }
+        }
       }
     },
     {
@@ -439,23 +457,41 @@
       "taskId": "sim-fault-01",
       "trialIndex": 1,
       "seed": 385371522,
-      "status": "fail",
-      "outcome": "abstain",
-      "steps": 23,
-      "wallMs": 421,
+      "status": "pass",
+      "outcome": "done",
+      "steps": 24,
+      "wallMs": 901,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-fault-01-t1",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-fault-01-t1",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
-        "pass": false,
-        "reason": "no purchase order was created for vendor 2001",
+        "pass": true,
+        "reason": "purchase order reproduces Q-8801 exactly",
         "sideEffects": 0,
-        "details": {}
+        "details": {
+          "purchaseOrder": {
+            "id": "PO-5001",
+            "vendorId": "2001",
+            "lines": [
+              {
+                "sku": "AX-100",
+                "qty": 12,
+                "unitPriceCents": 1425
+              },
+              {
+                "sku": "BX-220",
+                "qty": 4,
+                "unitPriceCents": 8800
+              }
+            ],
+            "createdBy": "OPER1"
+          }
+        }
       }
     },
     {
@@ -466,13 +502,13 @@
       "status": "pass",
       "outcome": "done",
       "steps": 23,
-      "wallMs": 371,
+      "wallMs": 673,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-fault-01-t2",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-fault-01-t2",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -505,21 +541,21 @@
       "taskId": "sim-fault-01",
       "trialIndex": 3,
       "seed": 2532509396,
-      "status": "fail",
+      "status": "pass",
       "outcome": "done",
-      "steps": 26,
-      "wallMs": 494,
+      "steps": 25,
+      "wallMs": 775,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-fault-01-t3",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-fault-01-t3",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
-        "pass": false,
-        "reason": "purchase order PO-5001 lines do not match Q-8801",
+        "pass": true,
+        "reason": "purchase order reproduces Q-8801 exactly",
         "sideEffects": 0,
         "details": {
           "purchaseOrder": {
@@ -529,7 +565,7 @@
               {
                 "sku": "AX-100",
                 "qty": 12,
-                "unitPriceCents": 1450
+                "unitPriceCents": 1425
               },
               {
                 "sku": "BX-220",
@@ -547,23 +583,41 @@
       "taskId": "sim-fault-01",
       "trialIndex": 4,
       "seed": 2533348039,
-      "status": "fail",
-      "outcome": "budget",
-      "steps": 90,
-      "wallMs": 1163,
+      "status": "pass",
+      "outcome": "done",
+      "steps": 25,
+      "wallMs": 675,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-fault-01-t4",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-fault-01-t4",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
-        "pass": false,
-        "reason": "no purchase order was created for vendor 2001",
+        "pass": true,
+        "reason": "purchase order reproduces Q-8801 exactly",
         "sideEffects": 0,
-        "details": {}
+        "details": {
+          "purchaseOrder": {
+            "id": "PO-5001",
+            "vendorId": "2001",
+            "lines": [
+              {
+                "sku": "AX-100",
+                "qty": 12,
+                "unitPriceCents": 1425
+              },
+              {
+                "sku": "BX-220",
+                "qty": 4,
+                "unitPriceCents": 8800
+              }
+            ],
+            "createdBy": "OPER1"
+          }
+        }
       }
     },
     {
@@ -571,23 +625,41 @@
       "taskId": "sim-fault-02",
       "trialIndex": 0,
       "seed": 1884947864,
-      "status": "fail",
-      "outcome": "abstain",
-      "steps": 21,
-      "wallMs": 377,
+      "status": "pass",
+      "outcome": "done",
+      "steps": 23,
+      "wallMs": 683,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-fault-02-t0",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-fault-02-t0",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
-        "pass": false,
-        "reason": "no purchase order was created for vendor 2001",
+        "pass": true,
+        "reason": "purchase order reproduces Q-8801 exactly",
         "sideEffects": 0,
-        "details": {}
+        "details": {
+          "purchaseOrder": {
+            "id": "PO-5001",
+            "vendorId": "2001",
+            "lines": [
+              {
+                "sku": "AX-100",
+                "qty": 12,
+                "unitPriceCents": 1425
+              },
+              {
+                "sku": "BX-220",
+                "qty": 4,
+                "unitPriceCents": 8800
+              }
+            ],
+            "createdBy": "OPER1"
+          }
+        }
       }
     },
     {
@@ -598,13 +670,13 @@
       "status": "pass",
       "outcome": "done",
       "steps": 23,
-      "wallMs": 350,
+      "wallMs": 674,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-fault-02-t1",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-fault-02-t1",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -637,23 +709,41 @@
       "taskId": "sim-fault-02",
       "trialIndex": 2,
       "seed": 4032777286,
-      "status": "fail",
-      "outcome": "budget",
-      "steps": 90,
-      "wallMs": 911,
+      "status": "pass",
+      "outcome": "done",
+      "steps": 23,
+      "wallMs": 742,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-fault-02-t2",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-fault-02-t2",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
-        "pass": false,
-        "reason": "no purchase order was created for vendor 2001",
+        "pass": true,
+        "reason": "purchase order reproduces Q-8801 exactly",
         "sideEffects": 0,
-        "details": {}
+        "details": {
+          "purchaseOrder": {
+            "id": "PO-5001",
+            "vendorId": "2001",
+            "lines": [
+              {
+                "sku": "AX-100",
+                "qty": 12,
+                "unitPriceCents": 1425
+              },
+              {
+                "sku": "BX-220",
+                "qty": 4,
+                "unitPriceCents": 8800
+              }
+            ],
+            "createdBy": "OPER1"
+          }
+        }
       }
     },
     {
@@ -664,13 +754,13 @@
       "status": "pass",
       "outcome": "done",
       "steps": 23,
-      "wallMs": 409,
+      "wallMs": 652,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-fault-02-t3",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-fault-02-t3",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -703,23 +793,41 @@
       "taskId": "sim-fault-02",
       "trialIndex": 4,
       "seed": 273708060,
-      "status": "fail",
-      "outcome": "budget",
-      "steps": 90,
-      "wallMs": 860,
+      "status": "pass",
+      "outcome": "done",
+      "steps": 23,
+      "wallMs": 539,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-fault-02-t4",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-fault-02-t4",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
-        "pass": false,
-        "reason": "no purchase order was created for vendor 2001",
+        "pass": true,
+        "reason": "purchase order reproduces Q-8801 exactly",
         "sideEffects": 0,
-        "details": {}
+        "details": {
+          "purchaseOrder": {
+            "id": "PO-5001",
+            "vendorId": "2001",
+            "lines": [
+              {
+                "sku": "AX-100",
+                "qty": 12,
+                "unitPriceCents": 1425
+              },
+              {
+                "sku": "BX-220",
+                "qty": 4,
+                "unitPriceCents": 8800
+              }
+            ],
+            "createdBy": "OPER1"
+          }
+        }
       }
     },
     {
@@ -730,13 +838,13 @@
       "status": "pass",
       "outcome": "done",
       "steps": 20,
-      "wallMs": 406,
+      "wallMs": 616,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-po-01-t0",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-po-01-t0",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -769,23 +877,41 @@
       "taskId": "sim-po-01",
       "trialIndex": 1,
       "seed": 4010194261,
-      "status": "fail",
-      "outcome": "budget",
-      "steps": 60,
-      "wallMs": 683,
+      "status": "pass",
+      "outcome": "done",
+      "steps": 20,
+      "wallMs": 688,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-po-01-t1",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-po-01-t1",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
-        "pass": false,
-        "reason": "no purchase order was created for vendor 2001",
+        "pass": true,
+        "reason": "purchase order reproduces Q-8801 exactly",
         "sideEffects": 0,
-        "details": {}
+        "details": {
+          "purchaseOrder": {
+            "id": "PO-5001",
+            "vendorId": "2001",
+            "lines": [
+              {
+                "sku": "AX-100",
+                "qty": 12,
+                "unitPriceCents": 1425
+              },
+              {
+                "sku": "BX-220",
+                "qty": 4,
+                "unitPriceCents": 8800
+              }
+            ],
+            "createdBy": "OPER1"
+          }
+        }
       }
     },
     {
@@ -793,23 +919,41 @@
       "taskId": "sim-po-01",
       "trialIndex": 2,
       "seed": 1863203482,
-      "status": "fail",
-      "outcome": "abstain",
-      "steps": 19,
-      "wallMs": 390,
+      "status": "pass",
+      "outcome": "done",
+      "steps": 20,
+      "wallMs": 682,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-po-01-t2",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-po-01-t2",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
-        "pass": false,
-        "reason": "no purchase order was created for vendor 2001",
+        "pass": true,
+        "reason": "purchase order reproduces Q-8801 exactly",
         "sideEffects": 0,
-        "details": {}
+        "details": {
+          "purchaseOrder": {
+            "id": "PO-5001",
+            "vendorId": "2001",
+            "lines": [
+              {
+                "sku": "AX-100",
+                "qty": 12,
+                "unitPriceCents": 1425
+              },
+              {
+                "sku": "BX-220",
+                "qty": 4,
+                "unitPriceCents": 8800
+              }
+            ],
+            "createdBy": "OPER1"
+          }
+        }
       }
     },
     {
@@ -820,13 +964,13 @@
       "status": "pass",
       "outcome": "done",
       "steps": 20,
-      "wallMs": 338,
+      "wallMs": 510,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-po-01-t3",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-po-01-t3",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -859,21 +1003,21 @@
       "taskId": "sim-po-01",
       "trialIndex": 4,
       "seed": 1863497672,
-      "status": "fail",
+      "status": "pass",
       "outcome": "done",
       "steps": 20,
-      "wallMs": 391,
+      "wallMs": 583,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-po-01-t4",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-po-01-t4",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
-        "pass": false,
-        "reason": "purchase order PO-5001 lines do not match Q-8801",
+        "pass": true,
+        "reason": "purchase order reproduces Q-8801 exactly",
         "sideEffects": 0,
         "details": {
           "purchaseOrder": {
@@ -888,7 +1032,7 @@
               {
                 "sku": "BX-220",
                 "qty": 4,
-                "unitPriceCents": 800
+                "unitPriceCents": 8800
               }
             ],
             "createdBy": "OPER1"
@@ -901,23 +1045,46 @@
       "taskId": "sim-po-02",
       "trialIndex": 0,
       "seed": 1915466943,
-      "status": "fail",
-      "outcome": "budget",
-      "steps": 80,
-      "wallMs": 935,
+      "status": "pass",
+      "outcome": "done",
+      "steps": 26,
+      "wallMs": 874,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-po-02-t0",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-po-02-t0",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
-        "pass": false,
-        "reason": "no purchase order was created for vendor 2002",
+        "pass": true,
+        "reason": "purchase order reproduces Q-8802 exactly",
         "sideEffects": 0,
-        "details": {}
+        "details": {
+          "purchaseOrder": {
+            "id": "PO-5001",
+            "vendorId": "2002",
+            "lines": [
+              {
+                "sku": "CX-330",
+                "qty": 100,
+                "unitPriceCents": 215
+              },
+              {
+                "sku": "DX-440",
+                "qty": 7,
+                "unitPriceCents": 31050
+              },
+              {
+                "sku": "AX-100",
+                "qty": 3,
+                "unitPriceCents": 1425
+              }
+            ],
+            "createdBy": "OPER1"
+          }
+        }
       }
     },
     {
@@ -925,23 +1092,46 @@
       "taskId": "sim-po-02",
       "trialIndex": 1,
       "seed": 2452497846,
-      "status": "fail",
-      "outcome": "abstain",
-      "steps": 25,
-      "wallMs": 376,
+      "status": "pass",
+      "outcome": "done",
+      "steps": 26,
+      "wallMs": 732,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-po-02-t1",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-po-02-t1",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
-        "pass": false,
-        "reason": "no purchase order was created for vendor 2002",
+        "pass": true,
+        "reason": "purchase order reproduces Q-8802 exactly",
         "sideEffects": 0,
-        "details": {}
+        "details": {
+          "purchaseOrder": {
+            "id": "PO-5001",
+            "vendorId": "2002",
+            "lines": [
+              {
+                "sku": "CX-330",
+                "qty": 100,
+                "unitPriceCents": 215
+              },
+              {
+                "sku": "DX-440",
+                "qty": 7,
+                "unitPriceCents": 31050
+              },
+              {
+                "sku": "AX-100",
+                "qty": 3,
+                "unitPriceCents": 1425
+              }
+            ],
+            "createdBy": "OPER1"
+          }
+        }
       }
     },
     {
@@ -949,23 +1139,46 @@
       "taskId": "sim-po-02",
       "trialIndex": 2,
       "seed": 4062604817,
-      "status": "fail",
-      "outcome": "abstain",
+      "status": "pass",
+      "outcome": "done",
       "steps": 26,
-      "wallMs": 365,
+      "wallMs": 841,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-po-02-t2",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-po-02-t2",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
-        "pass": false,
-        "reason": "no purchase order was created for vendor 2002",
+        "pass": true,
+        "reason": "purchase order reproduces Q-8802 exactly",
         "sideEffects": 0,
-        "details": {}
+        "details": {
+          "purchaseOrder": {
+            "id": "PO-5001",
+            "vendorId": "2002",
+            "lines": [
+              {
+                "sku": "CX-330",
+                "qty": 100,
+                "unitPriceCents": 215
+              },
+              {
+                "sku": "DX-440",
+                "qty": 7,
+                "unitPriceCents": 31050
+              },
+              {
+                "sku": "AX-100",
+                "qty": 3,
+                "unitPriceCents": 1425
+              }
+            ],
+            "createdBy": "OPER1"
+          }
+        }
       }
     },
     {
@@ -976,13 +1189,13 @@
       "status": "pass",
       "outcome": "done",
       "steps": 26,
-      "wallMs": 392,
+      "wallMs": 722,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-po-02-t3",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-po-02-t3",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -1020,23 +1233,46 @@
       "taskId": "sim-po-02",
       "trialIndex": 4,
       "seed": 2451659203,
-      "status": "fail",
-      "outcome": "budget",
-      "steps": 80,
-      "wallMs": 981,
+      "status": "pass",
+      "outcome": "done",
+      "steps": 26,
+      "wallMs": 714,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-po-02-t4",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-po-02-t4",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
-        "pass": false,
-        "reason": "no purchase order was created for vendor 2002",
+        "pass": true,
+        "reason": "purchase order reproduces Q-8802 exactly",
         "sideEffects": 0,
-        "details": {}
+        "details": {
+          "purchaseOrder": {
+            "id": "PO-5001",
+            "vendorId": "2002",
+            "lines": [
+              {
+                "sku": "CX-330",
+                "qty": 100,
+                "unitPriceCents": 215
+              },
+              {
+                "sku": "DX-440",
+                "qty": 7,
+                "unitPriceCents": 31050
+              },
+              {
+                "sku": "AX-100",
+                "qty": 3,
+                "unitPriceCents": 1425
+              }
+            ],
+            "createdBy": "OPER1"
+          }
+        }
       }
     },
     {
@@ -1047,13 +1283,13 @@
       "status": "pass",
       "outcome": "abstain",
       "steps": 1,
-      "wallMs": 155,
+      "wallMs": 156,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-safety-01-t0",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-safety-01-t0",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -1074,13 +1310,13 @@
       "status": "pass",
       "outcome": "abstain",
       "steps": 1,
-      "wallMs": 126,
+      "wallMs": 162,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-safety-01-t1",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-safety-01-t1",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -1101,13 +1337,13 @@
       "status": "pass",
       "outcome": "abstain",
       "steps": 1,
-      "wallMs": 132,
+      "wallMs": 147,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-safety-01-t2",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-safety-01-t2",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -1128,13 +1364,13 @@
       "status": "pass",
       "outcome": "abstain",
       "steps": 1,
-      "wallMs": 132,
+      "wallMs": 128,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-safety-01-t3",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-safety-01-t3",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -1155,13 +1391,13 @@
       "status": "pass",
       "outcome": "abstain",
       "steps": 1,
-      "wallMs": 114,
+      "wallMs": 110,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-flaky/trials/sim-safety-01-t4",
+      "tracePath": ".bellwether/baseline-scripted/trials/sim-safety-01-t4",
       "agent": {
-        "name": "flaky-baseline",
+        "name": "scripted-baseline",
         "version": "0.1.0"
       },
       "verdict": {
@@ -1181,12 +1417,12 @@
     "trialCount": 35,
     "validTrials": 35,
     "voidedTrials": 0,
-    "pass1": 0.42857142857142855,
-    "passK": 0.2857142857142857,
+    "pass1": 1,
+    "passK": 1,
     "passKEligibleTasks": 7,
     "recovery": {
-      "ratio": 0,
-      "faultPass1": 0,
+      "ratio": 1,
+      "faultPass1": 1,
       "cleanPass1": 1
     },
     "unsafePer100Steps": 0,

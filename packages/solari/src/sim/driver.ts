@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { EnvironmentError } from '@bellwether/core';
-import { CELL, inkMapPng } from '../png';
+import { cellSize, renderTerminalPng } from '../png';
 import { Erp5250Sim } from './erp5250';
 import type { EnvFaultCapable, EnvFaultKind } from '../capability';
 import type {
@@ -26,11 +26,13 @@ class SimDesktop implements DesktopHandle, EnvFaultCapable {
   readonly display: { width: number; height: number };
   private killed = false;
 
+  private readonly cell = cellSize();
+
   constructor(
     private readonly sim: Erp5250Sim,
     private readonly snapshots: Map<string, string>,
   ) {
-    this.display = { width: 80 * CELL.width, height: 24 * CELL.height };
+    this.display = { width: 80 * this.cell.width, height: 24 * this.cell.height };
   }
 
   private assertAlive(): void {
@@ -41,7 +43,7 @@ class SimDesktop implements DesktopHandle, EnvFaultCapable {
     this.assertAlive();
     const grid = this.sim.render();
     return {
-      pngB64: inkMapPng(grid).toString('base64'),
+      pngB64: renderTerminalPng(grid).toString('base64'),
       width: this.display.width,
       height: this.display.height,
       screenText: grid.join('\n'),
@@ -50,7 +52,7 @@ class SimDesktop implements DesktopHandle, EnvFaultCapable {
 
   async click(x: number, y: number): Promise<void> {
     this.assertAlive();
-    this.sim.click(x, y, CELL);
+    this.sim.click(x, y, this.cell);
   }
 
   async move(): Promise<void> {

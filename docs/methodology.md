@@ -5,11 +5,17 @@
 Every number this repository has produced comes from `--driver sim`. Read this list
 before the results, not after.
 
-1. **The simulator is not a vision problem.** The `sim` surface renders a 24×80
-   character grid and exposes it as `observation.screenText`. Its PNG is a coarse ink
-   map, not a rendered screen. The baselines read the text. Nothing here measures
-   visual grounding, OCR, or coordinate estimation on a real UI, which is a large part
-   of what makes computer use hard.
+1. **No vision agent has been run.** The `sim` surface now renders real glyphs — an
+   80×24 grid in an 8×16 bitmap font at 2×, legible in `docs/images/` — so a vision
+   agent *can* be pointed at it. None has been. Every number in `results/` was produced
+   by an entrant reading `observation.screenText`, and reading a character grid is not
+   the same skill as reading a screen.
+
+   Even once one has been run, the ceiling on what this surface can show is a rendered
+   terminal: no anti-aliasing, no window chrome, no compositor, no unfamiliar font. It
+   is a real raster, not a real desktop. `envs/legacy-5250/` holds the X-based recipe
+   that would close that gap (Xvfb, a terminal emulator, xdotool) and it has never been
+   built or executed. See [ADR-0007](adr/0007-the-simulator-renders-real-glyphs.md).
 2. **No live run has been made.** The live Solari driver, the Odoo environment and the
    `claude-cua` agent are written and self-tested but unexecuted. Their code carries a
    verification-status banner. No live figure appears anywhere.
@@ -115,7 +121,9 @@ verdict links to the trace that produced it. A reader who distrusts the headline
 recompute it.
 
 **Fixed seeds, pinned snapshots.** `results/` holds committed runs at seed `20260902`.
-Re-running that seed must reproduce them.
+Re-running that seed must reproduce them — and when the frame renderer was replaced, it
+did, to the digit. A change that should not move the numbers and does is a signal worth
+more than a change that does move them.
 
 ## Changing the benchmark
 
@@ -128,7 +136,8 @@ that has been cited.
 
 | date | driver | agents | k | seed | note |
 | --- | --- | --- | --- | --- | --- |
-| 2026-09-02 | sim | scripted, flaky, compiled | 5 | 20260902 | Baseline in `results/`. Simulator only. |
+| 2026-09-02 | sim | scripted, flaky, compiled | 5 | 20260902 | First baseline, ink-map frames. Superseded. |
+| 2026-09-03 | sim | scripted, flaky, compiled | 5 | 20260902 | Current baseline in `results/`. Re-run after the surface began rendering real glyphs; **every metric was identical to the 2026-09-02 run**, which is the expected result when only the pixels change and every entrant reads `screenText`. Simulator only; no vision agent. |
 
 *No live run has been recorded. This table is the only place a live figure may be
 introduced, and it must cite the `results/` file that backs it.*

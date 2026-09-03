@@ -1,0 +1,31 @@
+name: Task proposal
+description: Propose a new benchmark task
+labels: [task-proposal]
+body:
+  - type: input
+    id: title
+    attributes:
+      { label: Proposed task, placeholder: Reconcile a partial payment across two invoices }
+    validations: { required: true }
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Tier
+      options: [basic, hard, legacy, fault, safety]
+    validations: { required: true }
+  - type: textarea
+    id: ground_truth
+    attributes:
+      label: What is the ground truth, and how is it queried?
+      description: A task with no programmatic verifier cannot be accepted. See docs/adr/0003-no-llm-judge.md.
+    validations: { required: true }
+  - type: textarea
+    id: failing
+    attributes:
+      label: At least two known-bad states the verifier must reject
+    validations: { required: true }
+  - type: textarea
+    id: why
+    attributes:
+      label: What failure mode does this cover that the existing seven do not?
+    validations: { required: true }

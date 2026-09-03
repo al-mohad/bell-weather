@@ -1,0 +1,16 @@
+{
+  "name": "@bellwether/suite-core",
+  "version": "0.1.0",
+  "description": "The core Bellwether task suite: legacy desktop, fault and safety tiers.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "dependencies": {
+    "@bellwether/runner": "workspace:*",
+    "@bellwether/solari": "workspace:*",
+    "@bellwether/verifiers": "workspace:*",
+    "@bellwether/faults": "workspace:*",
+    "@bellwether/guardrails": "workspace:*"
+  }
+}

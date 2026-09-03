@@ -1,0 +1,31 @@
+{
+  "name": "bellwether",
+  "version": "0.1.0",
+  "description": "Reliability benchmark for computer-use agents on legacy enterprise software.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "bin": {
+    "bellwether": "./dist/bin.js"
+  },
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "publishConfig": {
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/bin.ts src/index.ts --format esm --dts --clean"
+  },
+  "dependencies": {
+    "@bellwether/compile": "workspace:*",
+    "@bellwether/core": "workspace:*",
+    "@bellwether/report": "workspace:*",
+    "@bellwether/runner": "workspace:*",
+    "@bellwether/solari": "workspace:*",
+    "@bellwether/suite-core": "workspace:*",
+    "commander": "^14.0.2"
+  }
+}

@@ -1,0 +1,20 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      dev-tooling:
+        patterns: ['eslint*', 'prettier*', 'typescript*', 'vitest*', '@vitest/*', 'tsup', 'tsx']
+    # A dependency bump can change a published benchmark number, so runtime deps are
+    # reviewed one at a time rather than grouped.
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

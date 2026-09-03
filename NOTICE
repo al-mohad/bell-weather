@@ -1,0 +1,29 @@
+Bellwether
+Copyright 2026 The Bellwether Authors
+
+This product includes software developed by the Bellwether Authors
+(https://github.com/OWNER/bellwether).
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+---------------------------------------------------------------------------
+Third-party environments under test
+---------------------------------------------------------------------------
+
+The `envs/` directory builds container images from third-party applications so
+they can be benchmarked. Those applications are NOT distributed with this
+repository: each environment recipe pulls the upstream image or source at build
+time, and each remains under its own licence.
+
+  Odoo Community Edition        LGPL-3.0        https://github.com/odoo/odoo
+  osTicket                      GPL-2.0         https://github.com/osTicket/osTicket
+  Roundcube Webmail             GPL-3.0         https://github.com/roundcube/roundcubemail
+  Akaunting                     GPL-3.0         https://github.com/akaunting/akaunting
+  tn5250 (5250 terminal)        GPL-2.0         https://sourceforge.net/projects/tn5250/
+  LibreOffice                   MPL-2.0         https://www.libreoffice.org/
+
+The simulated ERP in `packages/solari/src/sim/` is original work under
+Apache-2.0. It is not derived from, and does not reproduce, any commercial
+product: its screens, field names and seed data were written for this project.

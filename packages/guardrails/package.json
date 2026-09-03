@@ -1,0 +1,22 @@
+{
+  "name": "@bellwether/guardrails",
+  "version": "0.1.0",
+  "description": "Action policy enforcement and trace redaction. Runs between the agent and the surface.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "publishConfig": {
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean"
+  },
+  "dependencies": {
+    "@bellwether/protocol": "workspace:*"
+  }
+}

@@ -1,0 +1,92 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# One run per ref. A superseded run is cancelled rather than left burning minutes.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # Nothing in this workflow may reach a metered API. The whole suite runs on the
+  # simulator, so a pull request from a fork is safe by construction.
+  BELLWETHER_BUDGET_USD: '0'
+
+jobs:
+  check:
+    name: check (node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['22', '24']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm format
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test:coverage
+      - name: Upload coverage
+        if: matrix.node == '22'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 7
+
+  benchmark:
+    name: benchmark (simulator)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Every verifier must be able to fail
+        run: pnpm verify:verifiers
+
+      - name: Calibration ceiling
+        run: |
+          pnpm bench:sim
+          pnpm tsx scripts/assert-ceiling.ts .bellwether/sim/results.json
+
+      - name: Reliability curve
+        run: pnpm bench:curve
+
+      - name: Upload reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: bellwether-report
+          path: |
+            .bellwether/sim/results.json
+            .bellwether/sim/index.html
+            .bellwether/curve/results.json
+            .bellwether/curve/index.html
+          retention-days: 14
+
+  secrets:
+    name: secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,25 @@
+{
+  "$comment": "Agent registry. Adding an agent is one entry plus a stdio loop - see docs/add-an-agent.md. Paths are relative to the repository root.",
+  "agents": {
+    "scripted": {
+      "command": "node",
+      "args": ["--import", "tsx", "agents/scripted-baseline/src/main.ts"],
+      "description": "Hand-written deterministic flow. The calibration ceiling: if this cannot pass a task, the task is broken."
+    },
+    "flaky": {
+      "command": "node",
+      "args": ["--import", "tsx", "agents/flaky-baseline/src/main.ts"],
+      "description": "The scripted flow with seeded per-step input errors it does not notice. Reproduces the pass^k collapse with no model and no API key."
+    },
+    "compiled": {
+      "command": "node",
+      "args": ["--import", "tsx", "agents/compiled-flow/src/main.ts"],
+      "description": "Replays a flow compiled from a successful trace, falling back to abstention on UI drift."
+    },
+    "claude-cua": {
+      "command": "python3",
+      "args": ["agents/claude-cua/main.py"],
+      "description": "Reference computer-use agent. Needs ANTHROPIC_API_KEY and costs money per step."
+    }
+  }
+}

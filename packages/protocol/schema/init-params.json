@@ -1,0 +1,77 @@
+{
+  "$id": "https://bellwether.dev/schema/1.0/init-params.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "protocol": {
+      "type": "string"
+    },
+    "taskId": {
+      "type": "string"
+    },
+    "goal": {
+      "type": "string"
+    },
+    "surface": {
+      "type": "string",
+      "enum": [
+        "browser",
+        "desktop"
+      ]
+    },
+    "context": {
+      "type": "string"
+    },
+    "budget": {
+      "type": "object",
+      "properties": {
+        "steps": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "usd": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "steps",
+        "usd"
+      ]
+    },
+    "display": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "height": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "width",
+        "height"
+      ]
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [
+    "protocol",
+    "taskId",
+    "goal",
+    "surface",
+    "budget",
+    "display",
+    "seed"
+  ]
+}

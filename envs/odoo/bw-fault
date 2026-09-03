@@ -1,0 +1,24 @@
+#!/bin/sh
+# Application-level fault hook. See envs/README.md.
+#
+# VERIFICATION STATUS: never executed.
+set -eu
+
+case "${1:-}" in
+  modal)
+    # Odoo shows a blocking dialog for an activity scheduled on the current user.
+    docker compose exec -T db psql -U odoo -d odoo -v ON_ERROR_STOP=1 -c \
+      "insert into mail_activity (res_model, res_model_id, res_id, activity_type_id, summary, user_id, date_deadline, create_date, write_date)
+       select 'purchase.order', (select id from ir_model where model = 'purchase.order'), 1, 1,
+              'Confirm your contact details', 2, current_date, now(), now()"
+    ;;
+  session-expiry)
+    # Dropping the session row forces a re-login and discards in-flight form state,
+    # which is what makes the recovery path an idempotency test.
+    docker compose exec -T odoo sh -c 'rm -rf /var/lib/odoo/sessions/* || true'
+    ;;
+  *)
+    echo "usage: bw-fault modal|session-expiry" >&2
+    exit 2
+    ;;
+esac

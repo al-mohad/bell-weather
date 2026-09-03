@@ -1,0 +1,15 @@
+# Default owner for everything.
+*                       @OWNER
+
+# The measurement surface. A change here can silently alter a published number, so
+# these paths always need a maintainer's review.
+/packages/verifiers/    @OWNER
+/packages/runner/src/metrics.ts  @OWNER
+/suites/                @OWNER
+/docs/methodology.md    @OWNER
+/docs/adr/              @OWNER
+/results/               @OWNER
+
+# Security-relevant.
+/packages/guardrails/   @OWNER
+/.github/workflows/     @OWNER

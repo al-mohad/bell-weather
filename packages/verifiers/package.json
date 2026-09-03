@@ -1,0 +1,24 @@
+{
+  "name": "@bellwether/verifiers",
+  "version": "0.1.0",
+  "description": "Ground-truth verifiers and the self-test kit that proves each one can fail.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "publishConfig": {
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean"
+  },
+  "dependencies": {
+    "@bellwether/core": "workspace:*",
+    "@bellwether/guardrails": "workspace:*",
+    "@bellwether/solari": "workspace:*"
+  }
+}

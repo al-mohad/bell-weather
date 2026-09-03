@@ -1,0 +1,200 @@
+{
+  "id": "flow_sim-cust-01_1d4a6af0",
+  "taskId": "sim-cust-01",
+  "sourceTrialId": "sim-cust-01#0",
+  "sourceRunId": "run_20260902T201605_bb27d2",
+  "createdAt": "2026-09-02T20:16:37.937Z",
+  "surface": "desktop",
+  "parameters": [
+    {
+      "name": "creditLimit",
+      "example": "42000.00"
+    }
+  ],
+  "steps": [
+    {
+      "index": 0,
+      "action": {
+        "kind": "type",
+        "text": "1",
+        "rationale": "enter selection"
+      },
+      "expect": {
+        "title": "NORTHWIND 5250               MAIN MENU                         USER: OPER1",
+        "message": "WORKSTATION READY - OPER1"
+      }
+    },
+    {
+      "index": 1,
+      "action": {
+        "kind": "key",
+        "keys": "Enter",
+        "rationale": "open menu option 1"
+      },
+      "expect": {
+        "title": "NORTHWIND 5250               MAIN MENU                         USER: OPER1",
+        "message": "WORKSTATION READY - OPER1"
+      }
+    },
+    {
+      "index": 2,
+      "action": {
+        "kind": "type",
+        "text": "1002",
+        "rationale": "enter custId"
+      },
+      "expect": {
+        "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE              USER: OPER1",
+        "message": "F3=Exit   F12=Cancel"
+      }
+    },
+    {
+      "index": 3,
+      "action": {
+        "kind": "key",
+        "keys": "Enter",
+        "rationale": "load the customer record"
+      },
+      "expect": {
+        "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE              USER: OPER1",
+        "message": "F3=Exit   F12=Cancel"
+      }
+    },
+    {
+      "index": 4,
+      "action": {
+        "kind": "click",
+        "x": 212,
+        "y": 88,
+        "button": "left",
+        "clicks": 1,
+        "rationale": "focus creditLimit"
+      },
+      "expect": {
+        "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+        "message": "F10=Update   F12=Cancel"
+      }
+    },
+    {
+      "index": 5,
+      "action": {
+        "kind": "key",
+        "keys": "Backspace",
+        "rationale": "clear creditLimit"
+      },
+      "expect": {
+        "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+        "message": "F10=Update   F12=Cancel"
+      }
+    },
+    {
+      "index": 6,
+      "action": {
+        "kind": "key",
+        "keys": "Backspace",
+        "rationale": "clear creditLimit"
+      },
+      "expect": {
+        "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+        "message": "F10=Update   F12=Cancel"
+      }
+    },
+    {
+      "index": 7,
+      "action": {
+        "kind": "key",
+        "keys": "Backspace",
+        "rationale": "clear creditLimit"
+      },
+      "expect": {
+        "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+        "message": "F10=Update   F12=Cancel"
+      }
+    },
+    {
+      "index": 8,
+      "action": {
+        "kind": "key",
+        "keys": "Backspace",
+        "rationale": "clear creditLimit"
+      },
+      "expect": {
+        "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+        "message": "F10=Update   F12=Cancel"
+      }
+    },
+    {
+      "index": 9,
+      "action": {
+        "kind": "key",
+        "keys": "Backspace",
+        "rationale": "clear creditLimit"
+      },
+      "expect": {
+        "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+        "message": "F10=Update   F12=Cancel"
+      }
+    },
+    {
+      "index": 10,
+      "action": {
+        "kind": "key",
+        "keys": "Backspace",
+        "rationale": "clear creditLimit"
+      },
+      "expect": {
+        "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+        "message": "F10=Update   F12=Cancel"
+      }
+    },
+    {
+      "index": 11,
+      "action": {
+        "kind": "key",
+        "keys": "Backspace",
+        "rationale": "clear creditLimit"
+      },
+      "expect": {
+        "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+        "message": "F10=Update   F12=Cancel"
+      }
+    },
+    {
+      "index": 12,
+      "action": {
+        "kind": "key",
+        "keys": "Backspace",
+        "rationale": "clear creditLimit"
+      },
+      "expect": {
+        "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+        "message": "F10=Update   F12=Cancel"
+      }
+    },
+    {
+      "index": 13,
+      "action": {
+        "kind": "type",
+        "text": "42000.00",
+        "rationale": "enter creditLimit"
+      },
+      "expect": {
+        "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+        "message": "F10=Update   F12=Cancel"
+      },
+      "parameter": "creditLimit"
+    },
+    {
+      "index": 14,
+      "action": {
+        "kind": "key",
+        "keys": "F10",
+        "rationale": "commit the credit limit change"
+      },
+      "expect": {
+        "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+        "message": "F10=Update   F12=Cancel"
+      }
+    }
+  ]
+}

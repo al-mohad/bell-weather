@@ -1,0 +1,75 @@
+{
+  "$id": "https://bellwether.dev/schema/1.0/observation.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "stepIndex": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "screenshotPngB64": {
+      "type": "string"
+    },
+    "width": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "height": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "screenText": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "lastResult": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "boolean"
+        },
+        "error": {
+          "type": "string"
+        },
+        "tookMs": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "ok",
+        "tookMs"
+      ]
+    },
+    "remaining": {
+      "type": "object",
+      "properties": {
+        "steps": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "usd": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "steps",
+        "usd"
+      ]
+    }
+  },
+  "required": [
+    "stepIndex",
+    "screenshotPngB64",
+    "width",
+    "height",
+    "remaining"
+  ]
+}

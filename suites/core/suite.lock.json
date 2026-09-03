@@ -1,0 +1,17 @@
+{
+  "$comment": "Pinned environment snapshots. A published result cites this file; changing a snapshot id is a breaking change to the benchmark and requires a MINOR suite version bump plus a re-run of every reported number.",
+  "suite": "core",
+  "suiteVersion": "0.1.0",
+  "environments": {
+    "sim-erp5250": {
+      "kind": "simulator",
+      "snapshotId": null,
+      "note": "The simulator seeds deterministically from packages/solari/src/sim/data.ts, so no snapshot id is needed. Its determinism is asserted by packages/solari/test/sim.test.ts."
+    },
+    "odoo-18-seeded": {
+      "kind": "solari-sandbox",
+      "snapshotId": null,
+      "note": "Populate with the id printed by `pnpm tsx scripts/seed-env.ts odoo`. Null means the environment has never been seeded, and every odoo-* task is skipped."
+    }
+  }
+}

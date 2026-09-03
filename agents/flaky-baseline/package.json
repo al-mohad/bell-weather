@@ -1,0 +1,14 @@
+{
+  "name": "@bellwether/agent-flaky-baseline",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The scripted flow with seeded, unnoticed input errors. Produces the pass^k curve without a model.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./src/main.ts",
+  "dependencies": {
+    "@bellwether/agent-scripted-baseline": "workspace:*",
+    "@bellwether/core": "workspace:*",
+    "@bellwether/protocol": "workspace:*"
+  }
+}

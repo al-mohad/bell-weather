@@ -1,0 +1,13 @@
+{
+  "name": "@bellwether/agent-scripted-baseline",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Deterministic hand-written flow for the simulated 5250 ERP. Calibrates the suite.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@bellwether/protocol": "workspace:*"
+  }
+}

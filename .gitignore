@@ -1,0 +1,8 @@
+node_modules/
+dist/
+coverage/
+.bellwether/
+*.log
+.env
+.env.local
+.DS_Store

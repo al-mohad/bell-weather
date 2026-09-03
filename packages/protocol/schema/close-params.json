@@ -1,0 +1,29 @@
+{
+  "$id": "https://bellwether.dev/schema/1.0/close-params.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "reason": {
+      "type": "string",
+      "enum": [
+        "done",
+        "abstain",
+        "budget",
+        "error",
+        "timeout"
+      ]
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "fail",
+        "unknown"
+      ]
+    }
+  },
+  "required": [
+    "reason",
+    "verdict"
+  ]
+}

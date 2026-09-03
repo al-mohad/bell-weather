@@ -1,0 +1,13 @@
+{
+  "name": "@bellwether/agent-compiled-flow",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Replays a compiled flow as a benchmark competitor.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./src/main.ts",
+  "dependencies": {
+    "@bellwether/compile": "workspace:*",
+    "@bellwether/protocol": "workspace:*"
+  }
+}

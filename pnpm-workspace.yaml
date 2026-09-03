@@ -1,0 +1,10 @@
+packages:
+  - 'packages/*'
+  - 'agents/*'
+  - 'suites/*'
+
+# esbuild ships a prebuilt binary and tsx/tsup are unusable without its
+# postinstall. Everything else stays script-free, so a new transitive dependency
+# cannot run code at install time without an explicit entry here.
+allowBuilds:
+  esbuild: true

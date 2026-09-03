@@ -1,0 +1,28 @@
+{
+  "name": "@bellwether/runner",
+  "version": "0.1.0",
+  "description": "Trial loop, suite orchestration, metrics and trace writing.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "publishConfig": {
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean"
+  },
+  "dependencies": {
+    "@bellwether/core": "workspace:*",
+    "@bellwether/faults": "workspace:*",
+    "@bellwether/guardrails": "workspace:*",
+    "@bellwether/protocol": "workspace:*",
+    "@bellwether/solari": "workspace:*",
+    "@bellwether/surfaces": "workspace:*",
+    "@bellwether/verifiers": "workspace:*"
+  }
+}

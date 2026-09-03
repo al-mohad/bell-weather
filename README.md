@@ -113,11 +113,14 @@ Requires Node ≥ 22.11 and pnpm 11. Nothing else — no API key, no Docker, no 
 
 ```bash
 pnpm install
-pnpm verify:verifiers      # prove every verifier can fail  (40/40 fixtures)
+pnpm verify:verifiers      # prove every verifier can fail   (40/40 fixtures)
 pnpm bench:sim             # the calibration ceiling         (pass^5 = 100%)
-pnpm bench:curve           # the reliability collapse        (pass^5 = 29%)
+pnpm bench:curve           # the reliability collapse        (pass@1 43%, pass^5 29%)
 open .bellwether/curve/index.html
 ```
+
+Those three scripts are pinned to seed `20260902`, so they reproduce the committed
+numbers in [`results/`](results/) exactly. If they do not, that is a bug worth an issue.
 
 Every trial writes a directory you can open: `meta.json`, `trace.jsonl`, one PNG per
 step, the agent's stderr, and the verifier's verdict. The report links to each one.

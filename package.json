@@ -19,11 +19,12 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "verify:verifiers": "tsx packages/cli/src/bin.ts verify-verifiers --suite core",
-    "bench:sim": "tsx packages/cli/src/bin.ts run --suite core --driver sim --agent scripted --k 5 --out .bellwether/sim",
-    "bench:curve": "tsx packages/cli/src/bin.ts run --suite core --driver sim --agent flaky --k 5 --out .bellwether/curve",
+    "bench:sim": "tsx packages/cli/src/bin.ts run --suite core --driver sim --agent scripted --k 5 --seed 20260902 --out .bellwether/sim",
+    "bench:curve": "tsx packages/cli/src/bin.ts run --suite core --driver sim --agent flaky --k 5 --seed 20260902 --out .bellwether/curve",
     "check": "pnpm format && pnpm lint && pnpm typecheck && pnpm test",
     "changeset": "changeset",
-    "release": "changeset publish"
+    "release": "changeset publish",
+    "bench:compiled": "tsx packages/cli/src/bin.ts run --suite core --driver sim --agent compiled --k 5 --seed 20260902 --out .bellwether/compiled"
   },
   "devDependencies": {
     "@bellwether/core": "workspace:*",

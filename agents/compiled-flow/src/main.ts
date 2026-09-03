@@ -1,4 +1,5 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { FlowCursor, PROTOCOL_VERSION } from './deps';
 import type { Flow } from './deps';
 import { serveAgent } from '@bellwether/protocol';
@@ -17,10 +18,28 @@ const flowDir = process.env.BELLWETHER_FLOW_DIR ?? '.bellwether/flows';
 let cursor: FlowCursor | undefined;
 let loadError: string | undefined;
 
+/**
+ * Resolve a task to a flow file.
+ *
+ * An optional index.json maps task ids to flow files, so a fault-tier task can point at
+ * the flow compiled from its clean twin without duplicating the file. Duplicating it
+ * would hide the fact that they are the same flow, which is the whole point of the
+ * comparison.
+ */
+function flowPathFor(taskId: string): string {
+  const indexPath = join(flowDir, 'index.json');
+  if (existsSync(indexPath)) {
+    const index = JSON.parse(readFileSync(indexPath, 'utf8')) as { flows?: Record<string, string> };
+    const mapped = index.flows?.[taskId];
+    if (mapped) return join(flowDir, mapped);
+  }
+  return join(flowDir, `${taskId}.json`);
+}
+
 await serveAgent({
   init(params: InitParams) {
     try {
-      const flow = JSON.parse(readFileSync(`${flowDir}/${params.taskId}.json`, 'utf8')) as Flow;
+      const flow = JSON.parse(readFileSync(flowPathFor(params.taskId), 'utf8')) as Flow;
       cursor = new FlowCursor(flow, { params: readParams() });
       process.stderr.write(`compiled-flow: ${flow.id} (${flow.steps.length} steps)\n`);
     } catch (error) {

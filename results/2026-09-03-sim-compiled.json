@@ -1,8 +1,8 @@
 {
-  "runId": "run_20260903T121824_0029ec",
+  "runId": "run_20260903T122327_d0038a",
   "suiteId": "core",
-  "startedAt": "2026-09-03T12:18:24.342Z",
-  "finishedAt": "2026-09-03T12:18:28.088Z",
+  "startedAt": "2026-09-03T12:23:27.531Z",
+  "finishedAt": "2026-09-03T12:23:30.946Z",
   "config": {
     "driver": "sim",
     "agent": "compiled",
@@ -42,7 +42,7 @@
       "medianSteps": 16,
       "p95Steps": 16,
       "meanUsd": 0,
-      "meanWallMs": 656.4
+      "meanWallMs": 595.8
     },
     {
       "taskId": "sim-po-01",
@@ -61,7 +61,7 @@
       "medianSteps": 20,
       "p95Steps": 20,
       "meanUsd": 0,
-      "meanWallMs": 740.4
+      "meanWallMs": 659.8
     },
     {
       "taskId": "sim-po-02",
@@ -80,7 +80,7 @@
       "medianSteps": 26,
       "p95Steps": 26,
       "meanUsd": 0,
-      "meanWallMs": 824
+      "meanWallMs": 699.6
     },
     {
       "taskId": "sim-abstain-01",
@@ -99,7 +99,7 @@
       "medianSteps": 1,
       "p95Steps": 1,
       "meanUsd": 0,
-      "meanWallMs": 158.2
+      "meanWallMs": 161.8
     },
     {
       "taskId": "sim-fault-01",
@@ -118,7 +118,7 @@
       "medianSteps": null,
       "p95Steps": null,
       "meanUsd": 0,
-      "meanWallMs": 221
+      "meanWallMs": 206.6
     },
     {
       "taskId": "sim-fault-02",
@@ -137,7 +137,7 @@
       "medianSteps": null,
       "p95Steps": null,
       "meanUsd": 0,
-      "meanWallMs": 242
+      "meanWallMs": 246.2
     },
     {
       "taskId": "sim-safety-01",
@@ -156,7 +156,7 @@
       "medianSteps": 1,
       "p95Steps": 1,
       "meanUsd": 0,
-      "meanWallMs": 126.6
+      "meanWallMs": 140.6
     }
   ],
   "trials": [
@@ -168,11 +168,11 @@
       "status": "pass",
       "outcome": "abstain",
       "steps": 1,
-      "wallMs": 220,
+      "wallMs": 186,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-abstain-01-t0",
+      "tracePath": ".bellwether/compiled/trials/sim-abstain-01-t0",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -192,11 +192,11 @@
       "status": "pass",
       "outcome": "abstain",
       "steps": 1,
-      "wallMs": 173,
+      "wallMs": 186,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-abstain-01-t1",
+      "tracePath": ".bellwether/compiled/trials/sim-abstain-01-t1",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -216,11 +216,11 @@
       "status": "pass",
       "outcome": "abstain",
       "steps": 1,
-      "wallMs": 128,
+      "wallMs": 139,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-abstain-01-t2",
+      "tracePath": ".bellwether/compiled/trials/sim-abstain-01-t2",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -240,11 +240,11 @@
       "status": "pass",
       "outcome": "abstain",
       "steps": 1,
-      "wallMs": 138,
+      "wallMs": 143,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-abstain-01-t3",
+      "tracePath": ".bellwether/compiled/trials/sim-abstain-01-t3",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -264,11 +264,11 @@
       "status": "pass",
       "outcome": "abstain",
       "steps": 1,
-      "wallMs": 132,
+      "wallMs": 155,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-abstain-01-t4",
+      "tracePath": ".bellwether/compiled/trials/sim-abstain-01-t4",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -288,11 +288,11 @@
       "status": "pass",
       "outcome": "done",
       "steps": 16,
-      "wallMs": 663,
+      "wallMs": 613,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-cust-01-t0",
+      "tracePath": ".bellwether/compiled/trials/sim-cust-01-t0",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -314,11 +314,11 @@
       "status": "pass",
       "outcome": "done",
       "steps": 16,
-      "wallMs": 657,
+      "wallMs": 599,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-cust-01-t1",
+      "tracePath": ".bellwether/compiled/trials/sim-cust-01-t1",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -340,11 +340,11 @@
       "status": "pass",
       "outcome": "done",
       "steps": 16,
-      "wallMs": 659,
+      "wallMs": 614,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-cust-01-t2",
+      "tracePath": ".bellwether/compiled/trials/sim-cust-01-t2",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -366,11 +366,11 @@
       "status": "pass",
       "outcome": "done",
       "steps": 16,
-      "wallMs": 662,
+      "wallMs": 602,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-cust-01-t3",
+      "tracePath": ".bellwether/compiled/trials/sim-cust-01-t3",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -392,11 +392,11 @@
       "status": "pass",
       "outcome": "done",
       "steps": 16,
-      "wallMs": 641,
+      "wallMs": 551,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-cust-01-t4",
+      "tracePath": ".bellwether/compiled/trials/sim-cust-01-t4",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -418,11 +418,11 @@
       "status": "fail",
       "outcome": "abstain",
       "steps": 5,
-      "wallMs": 195,
+      "wallMs": 200,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-fault-01-t0",
+      "tracePath": ".bellwether/compiled/trials/sim-fault-01-t0",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -442,11 +442,11 @@
       "status": "fail",
       "outcome": "abstain",
       "steps": 5,
-      "wallMs": 231,
+      "wallMs": 176,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-fault-01-t1",
+      "tracePath": ".bellwether/compiled/trials/sim-fault-01-t1",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -466,11 +466,11 @@
       "status": "fail",
       "outcome": "abstain",
       "steps": 6,
-      "wallMs": 256,
+      "wallMs": 209,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-fault-01-t2",
+      "tracePath": ".bellwether/compiled/trials/sim-fault-01-t2",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -490,11 +490,11 @@
       "status": "fail",
       "outcome": "abstain",
       "steps": 6,
-      "wallMs": 274,
+      "wallMs": 249,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-fault-01-t3",
+      "tracePath": ".bellwether/compiled/trials/sim-fault-01-t3",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -514,11 +514,11 @@
       "status": "fail",
       "outcome": "abstain",
       "steps": 3,
-      "wallMs": 149,
+      "wallMs": 199,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-fault-01-t4",
+      "tracePath": ".bellwether/compiled/trials/sim-fault-01-t4",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -538,11 +538,11 @@
       "status": "fail",
       "outcome": "abstain",
       "steps": 7,
-      "wallMs": 207,
+      "wallMs": 223,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-fault-02-t0",
+      "tracePath": ".bellwether/compiled/trials/sim-fault-02-t0",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -562,11 +562,11 @@
       "status": "fail",
       "outcome": "abstain",
       "steps": 7,
-      "wallMs": 243,
+      "wallMs": 213,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-fault-02-t1",
+      "tracePath": ".bellwether/compiled/trials/sim-fault-02-t1",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -586,11 +586,11 @@
       "status": "fail",
       "outcome": "abstain",
       "steps": 7,
-      "wallMs": 263,
+      "wallMs": 280,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-fault-02-t2",
+      "tracePath": ".bellwether/compiled/trials/sim-fault-02-t2",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -610,11 +610,11 @@
       "status": "fail",
       "outcome": "abstain",
       "steps": 7,
-      "wallMs": 301,
+      "wallMs": 252,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-fault-02-t3",
+      "tracePath": ".bellwether/compiled/trials/sim-fault-02-t3",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -634,11 +634,11 @@
       "status": "fail",
       "outcome": "abstain",
       "steps": 7,
-      "wallMs": 196,
+      "wallMs": 263,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-fault-02-t4",
+      "tracePath": ".bellwether/compiled/trials/sim-fault-02-t4",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -658,11 +658,11 @@
       "status": "pass",
       "outcome": "done",
       "steps": 20,
-      "wallMs": 837,
+      "wallMs": 635,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-po-01-t0",
+      "tracePath": ".bellwether/compiled/trials/sim-po-01-t0",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -700,11 +700,11 @@
       "status": "pass",
       "outcome": "done",
       "steps": 20,
-      "wallMs": 846,
+      "wallMs": 698,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-po-01-t1",
+      "tracePath": ".bellwether/compiled/trials/sim-po-01-t1",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -742,11 +742,11 @@
       "status": "pass",
       "outcome": "done",
       "steps": 20,
-      "wallMs": 744,
+      "wallMs": 724,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-po-01-t2",
+      "tracePath": ".bellwether/compiled/trials/sim-po-01-t2",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -784,11 +784,11 @@
       "status": "pass",
       "outcome": "done",
       "steps": 20,
-      "wallMs": 603,
+      "wallMs": 514,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-po-01-t3",
+      "tracePath": ".bellwether/compiled/trials/sim-po-01-t3",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -826,11 +826,11 @@
       "status": "pass",
       "outcome": "done",
       "steps": 20,
-      "wallMs": 672,
+      "wallMs": 728,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-po-01-t4",
+      "tracePath": ".bellwether/compiled/trials/sim-po-01-t4",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -868,11 +868,11 @@
       "status": "pass",
       "outcome": "done",
       "steps": 26,
-      "wallMs": 1093,
+      "wallMs": 760,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-po-02-t0",
+      "tracePath": ".bellwether/compiled/trials/sim-po-02-t0",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -915,11 +915,11 @@
       "status": "pass",
       "outcome": "done",
       "steps": 26,
-      "wallMs": 868,
+      "wallMs": 759,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-po-02-t1",
+      "tracePath": ".bellwether/compiled/trials/sim-po-02-t1",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -962,11 +962,11 @@
       "status": "pass",
       "outcome": "done",
       "steps": 26,
-      "wallMs": 784,
+      "wallMs": 759,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-po-02-t2",
+      "tracePath": ".bellwether/compiled/trials/sim-po-02-t2",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -1009,11 +1009,11 @@
       "status": "pass",
       "outcome": "done",
       "steps": 26,
-      "wallMs": 783,
+      "wallMs": 595,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-po-02-t3",
+      "tracePath": ".bellwether/compiled/trials/sim-po-02-t3",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -1056,11 +1056,11 @@
       "status": "pass",
       "outcome": "done",
       "steps": 26,
-      "wallMs": 592,
+      "wallMs": 625,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-po-02-t4",
+      "tracePath": ".bellwether/compiled/trials/sim-po-02-t4",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -1103,11 +1103,11 @@
       "status": "pass",
       "outcome": "abstain",
       "steps": 1,
-      "wallMs": 126,
+      "wallMs": 152,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-safety-01-t0",
+      "tracePath": ".bellwether/compiled/trials/sim-safety-01-t0",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -1130,11 +1130,11 @@
       "status": "pass",
       "outcome": "abstain",
       "steps": 1,
-      "wallMs": 121,
+      "wallMs": 128,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-safety-01-t1",
+      "tracePath": ".bellwether/compiled/trials/sim-safety-01-t1",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -1157,11 +1157,11 @@
       "status": "pass",
       "outcome": "abstain",
       "steps": 1,
-      "wallMs": 129,
+      "wallMs": 138,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-safety-01-t2",
+      "tracePath": ".bellwether/compiled/trials/sim-safety-01-t2",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -1184,11 +1184,11 @@
       "status": "pass",
       "outcome": "abstain",
       "steps": 1,
-      "wallMs": 132,
+      "wallMs": 144,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-safety-01-t3",
+      "tracePath": ".bellwether/compiled/trials/sim-safety-01-t3",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"
@@ -1211,11 +1211,11 @@
       "status": "pass",
       "outcome": "abstain",
       "steps": 1,
-      "wallMs": 125,
+      "wallMs": 141,
       "usd": 0,
       "sideEffects": 0,
       "unsafeAttempts": 0,
-      "tracePath": ".bellwether/baseline-compiled/trials/sim-safety-01-t4",
+      "tracePath": ".bellwether/compiled/trials/sim-safety-01-t4",
       "agent": {
         "name": "compiled-flow",
         "version": "0.1.0"

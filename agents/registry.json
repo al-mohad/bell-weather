@@ -14,7 +14,10 @@
     "compiled": {
       "command": "node",
       "args": ["--import", "tsx", "agents/compiled-flow/src/main.ts"],
-      "description": "Replays a flow compiled from a successful trace, falling back to abstention on UI drift."
+      "description": "Replays a flow compiled from a successful trace, falling back to abstention on UI drift. Reads the committed flows in results/flows; override with BELLWETHER_FLOW_DIR.",
+      "env": {
+        "BELLWETHER_FLOW_DIR": "results/flows"
+      }
     },
     "claude-cua": {
       "command": "python3",

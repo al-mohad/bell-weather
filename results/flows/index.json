@@ -1,0 +1,10 @@
+{
+  "$comment": "taskId -> compiled flow. sim-fault-01 and sim-fault-02 deliberately map to the sim-po-01 flow: they drive the identical application path with interruptions added, which is what makes their drift result meaningful. Tasks absent from this map have no compiled flow, and the compiled entrant abstains on them - see the note in README.md about sim-abstain-01 passing for the wrong reason.",
+  "flows": {
+    "sim-cust-01": "sim-cust-01.json",
+    "sim-po-01": "sim-po-01.json",
+    "sim-po-02": "sim-po-02.json",
+    "sim-fault-01": "sim-po-01.json",
+    "sim-fault-02": "sim-po-01.json"
+  }
+}

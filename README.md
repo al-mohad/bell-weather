@@ -116,6 +116,7 @@ pnpm install
 pnpm verify:verifiers      # prove every verifier can fail   (40/40 fixtures)
 pnpm bench:sim             # the calibration ceiling         (pass^5 = 100%)
 pnpm bench:curve           # the reliability collapse        (pass@1 43%, pass^5 29%)
+pnpm bench:compiled        # compiled flows vs interruptions (pass^5 71%)
 open .bellwether/curve/index.html
 ```
 
@@ -178,8 +179,14 @@ bellwether compile --trial .bellwether/run/trials/sim-po-01-t0 \
 
 Produces a JSON flow with a per-step screen assertion, a typed TypeScript module, and
 an MCP server exposing the flow as a callable tool. Blocked actions are never encoded.
-A GUI-only system that had no integration surface now has one. Examples in
-[`results/flows/`](results/flows/).
+A GUI-only system that had no integration surface now has one.
+
+The compiled flows behind the results table are committed in
+[`results/flows/`](results/flows/), so `pnpm bench:compiled` works from a clean clone.
+`results/flows/index.json` maps tasks to flows — the two fault tasks deliberately point
+at the flow compiled from `sim-po-01`, because they drive the identical application path
+with interruptions added, and that is what makes their 0/5 meaningful. Regenerate the
+lot with `pnpm bench:sim && pnpm flows`.
 
 ## Documentation
 

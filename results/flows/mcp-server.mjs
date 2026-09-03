@@ -11,8 +11,8 @@ const FLOWS = {
     "id": "flow_sim-po-01_f795248a",
     "taskId": "sim-po-01",
     "sourceTrialId": "sim-po-01#0",
-    "sourceRunId": "run_20260903T121737_569db9",
-    "createdAt": "2026-09-03T12:18:23.731Z",
+    "sourceRunId": "run_20260903T122243_a636c3",
+    "createdAt": "2026-09-03T12:23:27.147Z",
     "surface": "desktop",
     "parameters": [],
     "steps": [
@@ -263,6 +263,544 @@ const FLOWS = {
         }
       }
     ]
+  },
+  "sim-po-02": {
+    "id": "flow_sim-po-02_2900bb51",
+    "taskId": "sim-po-02",
+    "sourceTrialId": "sim-po-02#0",
+    "sourceRunId": "run_20260903T122243_a636c3",
+    "createdAt": "2026-09-03T12:23:27.150Z",
+    "surface": "desktop",
+    "parameters": [],
+    "steps": [
+      {
+        "index": 0,
+        "action": {
+          "kind": "type",
+          "text": "3",
+          "rationale": "enter selection"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               MAIN MENU                         USER: OPER1",
+          "message": "WORKSTATION READY - OPER1"
+        }
+      },
+      {
+        "index": 1,
+        "action": {
+          "kind": "key",
+          "keys": "Enter",
+          "rationale": "open menu option 3"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               MAIN MENU                         USER: OPER1",
+          "message": "WORKSTATION READY - OPER1"
+        }
+      },
+      {
+        "index": 2,
+        "action": {
+          "kind": "key",
+          "keys": "F3",
+          "rationale": "quote read; return to the menu"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               VENDOR QUOTES                     USER: OPER1",
+          "message": "F3=Exit   F12=Cancel"
+        }
+      },
+      {
+        "index": 3,
+        "action": {
+          "kind": "type",
+          "text": "2",
+          "rationale": "enter selection"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               MAIN MENU                         USER: OPER1",
+          "message": "RETURNED TO MAIN MENU"
+        }
+      },
+      {
+        "index": 4,
+        "action": {
+          "kind": "key",
+          "keys": "Enter",
+          "rationale": "open menu option 2"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               MAIN MENU                         USER: OPER1",
+          "message": "RETURNED TO MAIN MENU"
+        }
+      },
+      {
+        "index": 5,
+        "action": {
+          "kind": "type",
+          "text": "2002",
+          "rationale": "enter vendorId"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 6,
+        "action": {
+          "kind": "click",
+          "x": 136,
+          "y": 272,
+          "button": "left",
+          "clicks": 1,
+          "rationale": "focus item1"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 7,
+        "action": {
+          "kind": "type",
+          "text": "CX-330",
+          "rationale": "enter item1"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 8,
+        "action": {
+          "kind": "click",
+          "x": 328,
+          "y": 272,
+          "button": "left",
+          "clicks": 1,
+          "rationale": "focus qty1"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 9,
+        "action": {
+          "kind": "type",
+          "text": "100",
+          "rationale": "enter qty1"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 10,
+        "action": {
+          "kind": "click",
+          "x": 456,
+          "y": 272,
+          "button": "left",
+          "clicks": 1,
+          "rationale": "focus price1"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 11,
+        "action": {
+          "kind": "type",
+          "text": "2.15",
+          "rationale": "enter price1"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 12,
+        "action": {
+          "kind": "click",
+          "x": 136,
+          "y": 304,
+          "button": "left",
+          "clicks": 1,
+          "rationale": "focus item2"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 13,
+        "action": {
+          "kind": "type",
+          "text": "DX-440",
+          "rationale": "enter item2"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 14,
+        "action": {
+          "kind": "click",
+          "x": 328,
+          "y": 304,
+          "button": "left",
+          "clicks": 1,
+          "rationale": "focus qty2"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 15,
+        "action": {
+          "kind": "type",
+          "text": "7",
+          "rationale": "enter qty2"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 16,
+        "action": {
+          "kind": "click",
+          "x": 456,
+          "y": 304,
+          "button": "left",
+          "clicks": 1,
+          "rationale": "focus price2"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 17,
+        "action": {
+          "kind": "type",
+          "text": "310.50",
+          "rationale": "enter price2"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 18,
+        "action": {
+          "kind": "click",
+          "x": 136,
+          "y": 336,
+          "button": "left",
+          "clicks": 1,
+          "rationale": "focus item3"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 19,
+        "action": {
+          "kind": "type",
+          "text": "AX-100",
+          "rationale": "enter item3"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 20,
+        "action": {
+          "kind": "click",
+          "x": 328,
+          "y": 336,
+          "button": "left",
+          "clicks": 1,
+          "rationale": "focus qty3"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 21,
+        "action": {
+          "kind": "type",
+          "text": "3",
+          "rationale": "enter qty3"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 22,
+        "action": {
+          "kind": "click",
+          "x": 456,
+          "y": 336,
+          "button": "left",
+          "clicks": 1,
+          "rationale": "focus price3"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 23,
+        "action": {
+          "kind": "type",
+          "text": "14.25",
+          "rationale": "enter price3"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      },
+      {
+        "index": 24,
+        "action": {
+          "kind": "key",
+          "keys": "F10",
+          "rationale": "confirm the purchase order"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               PURCHASE ORDER ENTRY              USER: OPER1",
+          "message": "F10=Confirm   F12=Cancel"
+        }
+      }
+    ]
+  },
+  "sim-cust-01": {
+    "id": "flow_sim-cust-01_1d4a6af0",
+    "taskId": "sim-cust-01",
+    "sourceTrialId": "sim-cust-01#0",
+    "sourceRunId": "run_20260903T122243_a636c3",
+    "createdAt": "2026-09-03T12:23:27.151Z",
+    "surface": "desktop",
+    "parameters": [
+      {
+        "name": "creditLimit",
+        "example": "42000.00"
+      }
+    ],
+    "steps": [
+      {
+        "index": 0,
+        "action": {
+          "kind": "type",
+          "text": "1",
+          "rationale": "enter selection"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               MAIN MENU                         USER: OPER1",
+          "message": "WORKSTATION READY - OPER1"
+        }
+      },
+      {
+        "index": 1,
+        "action": {
+          "kind": "key",
+          "keys": "Enter",
+          "rationale": "open menu option 1"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               MAIN MENU                         USER: OPER1",
+          "message": "WORKSTATION READY - OPER1"
+        }
+      },
+      {
+        "index": 2,
+        "action": {
+          "kind": "type",
+          "text": "1002",
+          "rationale": "enter custId"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE              USER: OPER1",
+          "message": "F3=Exit   F12=Cancel"
+        }
+      },
+      {
+        "index": 3,
+        "action": {
+          "kind": "key",
+          "keys": "Enter",
+          "rationale": "load the customer record"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE              USER: OPER1",
+          "message": "F3=Exit   F12=Cancel"
+        }
+      },
+      {
+        "index": 4,
+        "action": {
+          "kind": "click",
+          "x": 424,
+          "y": 176,
+          "button": "left",
+          "clicks": 1,
+          "rationale": "focus creditLimit"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+          "message": "F10=Update   F12=Cancel"
+        }
+      },
+      {
+        "index": 5,
+        "action": {
+          "kind": "key",
+          "keys": "Backspace",
+          "rationale": "clear creditLimit"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+          "message": "F10=Update   F12=Cancel"
+        }
+      },
+      {
+        "index": 6,
+        "action": {
+          "kind": "key",
+          "keys": "Backspace",
+          "rationale": "clear creditLimit"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+          "message": "F10=Update   F12=Cancel"
+        }
+      },
+      {
+        "index": 7,
+        "action": {
+          "kind": "key",
+          "keys": "Backspace",
+          "rationale": "clear creditLimit"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+          "message": "F10=Update   F12=Cancel"
+        }
+      },
+      {
+        "index": 8,
+        "action": {
+          "kind": "key",
+          "keys": "Backspace",
+          "rationale": "clear creditLimit"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+          "message": "F10=Update   F12=Cancel"
+        }
+      },
+      {
+        "index": 9,
+        "action": {
+          "kind": "key",
+          "keys": "Backspace",
+          "rationale": "clear creditLimit"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+          "message": "F10=Update   F12=Cancel"
+        }
+      },
+      {
+        "index": 10,
+        "action": {
+          "kind": "key",
+          "keys": "Backspace",
+          "rationale": "clear creditLimit"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+          "message": "F10=Update   F12=Cancel"
+        }
+      },
+      {
+        "index": 11,
+        "action": {
+          "kind": "key",
+          "keys": "Backspace",
+          "rationale": "clear creditLimit"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+          "message": "F10=Update   F12=Cancel"
+        }
+      },
+      {
+        "index": 12,
+        "action": {
+          "kind": "key",
+          "keys": "Backspace",
+          "rationale": "clear creditLimit"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+          "message": "F10=Update   F12=Cancel"
+        }
+      },
+      {
+        "index": 13,
+        "action": {
+          "kind": "type",
+          "text": "42000.00",
+          "rationale": "enter creditLimit"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+          "message": "F10=Update   F12=Cancel"
+        },
+        "parameter": "creditLimit"
+      },
+      {
+        "index": 14,
+        "action": {
+          "kind": "key",
+          "keys": "F10",
+          "rationale": "commit the credit limit change"
+        },
+        "expect": {
+          "title": "NORTHWIND 5250               CUSTOMER MAINTENANCE  CUST 1002   USER: OPER1",
+          "message": "F10=Update   F12=Cancel"
+        }
+      }
+    ]
   }
 };
 
@@ -274,6 +812,31 @@ const TOOLS = [
       "type": "object",
       "properties": {},
       "required": []
+    }
+  },
+  {
+    "name": "run_sim_po_02",
+    "description": "Compiled flow for sim-po-02 (25 steps, recorded from trial sim-po-02#0).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  },
+  {
+    "name": "run_sim_cust_01",
+    "description": "Compiled flow for sim-cust-01 (15 steps, recorded from trial sim-cust-01#0).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "creditLimit": {
+          "type": "string",
+          "description": "e.g. 42000.00"
+        }
+      },
+      "required": [
+        "creditLimit"
+      ]
     }
   }
 ];

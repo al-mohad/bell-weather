@@ -24,9 +24,11 @@
     "check": "pnpm format && pnpm lint && pnpm typecheck && pnpm test",
     "changeset": "changeset",
     "release": "changeset publish",
-    "bench:compiled": "tsx packages/cli/src/bin.ts run --suite core --driver sim --agent compiled --k 5 --seed 20260902 --out .bellwether/compiled"
+    "bench:compiled": "tsx packages/cli/src/bin.ts run --suite core --driver sim --agent compiled --k 5 --seed 20260902 --out .bellwether/compiled",
+    "flows": "tsx scripts/compile-flows.ts"
   },
   "devDependencies": {
+    "@bellwether/compile": "workspace:*",
     "@bellwether/core": "workspace:*",
     "@bellwether/solari": "workspace:*",
     "@changesets/cli": "^2.29.7",

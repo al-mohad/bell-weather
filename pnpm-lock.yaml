@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@bellwether/compile':
+        specifier: workspace:*
+        version: link:packages/compile
       '@bellwether/core':
         specifier: workspace:*
         version: link:packages/core

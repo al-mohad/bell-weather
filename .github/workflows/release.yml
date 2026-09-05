@@ -15,6 +15,12 @@ concurrency:
 
 jobs:
   release:
+    # Opt-in. Until the @bellwether scope is claimed on npm and trusted publishing is
+    # configured, `changeset publish` cannot succeed, and a workflow that fails on every
+    # push to main trains everyone to ignore a red X. Set the repository variable
+    # RELEASE_ENABLED=true when the scope is ready:
+    #   gh variable set RELEASE_ENABLED --body true
+    if: vars.RELEASE_ENABLED == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

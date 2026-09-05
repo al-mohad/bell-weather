@@ -112,10 +112,24 @@ jobs:
   secrets:
     name: secret scan
     runs-on: ubuntu-latest
+    env:
+      GITLEAKS_VERSION: 8.24.3
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # gitleaks is invoked directly rather than through its action, which scans the
+      # commit range `<first pushed commit>^..<head>`. On a repository's initial push
+      # the first commit is the root and has no parent, so the range is invalid, git
+      # errors, and the job fails having scanned nothing - the worst possible outcome
+      # for a secret scan. A full-history scan has no such edge and this repository is
+      # small enough that it costs seconds.
+      - name: Install gitleaks
+        run: |
+          curl -sSfL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+            | sudo tar -xz -C /usr/local/bin gitleaks
+          gitleaks version
+
+      - name: Scan the full history
+        run: gitleaks detect --source . --config .gitleaks.toml --redact --verbose --exit-code 1

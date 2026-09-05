@@ -1,0 +1,36 @@
+# gitleaks configuration.
+#
+# This repository deliberately contains credential-SHAPED strings: the redaction rules
+# in packages/guardrails match on key formats, and their tests assert those formats are
+# scrubbed. Allowlisting them is not weakening the scan - a redaction rule that cannot
+# be tested is a redaction rule nobody can trust.
+#
+# Nothing here allowlists a path that could hold a real secret.
+
+title = "Bellwether"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Fixtures for the redaction rules and their tests"
+paths = [
+  '''packages/guardrails/src/redact\.ts''',
+  '''packages/guardrails/test/guardrails\.test\.ts''',
+  '''\.env\.example''',
+  '''agents/claude-cua/README\.md''',
+  '''docs/threat-model\.md''',
+  '''docs/technical-overview\.html''',
+  '''README\.md''',
+]
+
+[[allowlists]]
+description = "Placeholder credentials in documentation and examples"
+regexTarget = "match"
+regexes = [
+  '''slr_live_x{5,}''',
+  '''slr_live_abcdef123456''',
+  '''sk-ant-x{5,}''',
+  '''sk-ant-abcdefghijklmno''',
+  '''sk-ant-\.\.\.''',
+]

@@ -37,6 +37,16 @@ GitHub allows 20 topics; the 15 above leave room for whatever the project grows 
 Use `docs/images/frame-quotes.png` - a real observation from the benchmark, which is
 more informative than a logo and is the image the README leads with.
 
+## Publishing
+
+The release workflow is inert until the npm scope is claimed and trusted publishing is
+configured, so that a project which is not yet publishing does not accumulate failed
+workflow runs:
+
+```
+gh variable set RELEASE_ENABLED --body true
+```
+
 ## Release notes template
 
 Every release that changes a published number states the six coordinates:

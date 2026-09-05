@@ -10,7 +10,7 @@
 [![License](https://img.shields.io/badge/license-Apache--2.0-0F6B6B)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A522.11-0F6B6B)](.nvmrc)
 [![Agent protocol](https://img.shields.io/badge/agent%20protocol-1.0-97600A)](packages/protocol/schema)
-[![Verifier fixtures](https://img.shields.io/badge/verifier%20fixtures-40%2F40-0F6B6B)](docs/methodology.md#how-not-to-fool-yourself)
+[![Verifier fixtures](https://img.shields.io/badge/verifier%20fixtures-43%2F43-0F6B6B)](docs/methodology.md#how-not-to-fool-yourself)
 
 **A reproducible reliability benchmark for computer-use agents on legacy enterprise
 software — and a compiler that turns the flows they solve into deterministic tools.**
@@ -128,7 +128,7 @@ packages/runner       Trial loop, suite orchestration, metrics
 packages/compile      Trace -> deterministic flow -> MCP server
 packages/report       Static HTML leaderboard and trace scrubber
 packages/cli          bellwether
-suites/core           Seven simulator tasks + one live Odoo task
+suites/core           Seven simulator tasks, one live desktop task, one live Odoo task
 agents/               scripted, flaky, compiled, and a Claude computer-use reference
 envs/                 Recipes for the real environments (Odoo, osTicket, 5250)
 ```
@@ -141,7 +141,7 @@ Requires Node ≥ 22.11 and pnpm 11. Nothing else — no API key, no Docker, no 
 
 ```bash
 pnpm install
-pnpm verify:verifiers      # prove every verifier can fail   (40/40 fixtures)
+pnpm verify:verifiers      # prove every verifier can fail   (43/43 fixtures)
 pnpm bench:sim             # the calibration ceiling         (pass^5 = 100%)
 pnpm bench:curve           # the reliability collapse        (pass@1 43%, pass^5 29%)
 pnpm bench:compiled        # compiled flows vs interruptions (pass^5 71%)
@@ -187,19 +187,57 @@ bellwether run --driver live --agent claude-cua --k 5 \
   --tasks odoo-po-01 --budget-usd 20 --vm-usd-per-minute <from the price list>
 ```
 
-> **Verification status.** Every number above comes from `--driver sim`, and every
-> entrant that produced one read `screenText` rather than the pixels. The frames are
-> legible enough to point a vision agent at, and nobody has yet.
+> **Verification status.** The suite table above comes from `--driver sim`. The live
+> desktop tier has been executed — see below — and the browser tier has not. Every
+> entrant so far reads a text channel rather than the pixels; both surfaces now produce
+> frames a vision agent could read, and nobody has run one.
 >
-> Never executed from this repository: the live Solari driver, the Odoo environment, the
-> X-based `legacy-5250` recipe, and the one part of `claude-cua` that talks to the API.
-> Everything else in that agent — protocol loop, action mapping, clamping, usage, refusal
-> handling, abstention — is verified offline through the real harness against the real
-> verifier. The distinction is stated on every affected file and is the reason the driver
-> abstraction exists at all. Do not cite a live number until
-> [docs/methodology.md](docs/methodology.md) records one.
+> Still never executed: the browser surface, the Odoo environment, and the one part of
+> `claude-cua` that talks to the API. Everything else in that agent is verified offline
+> through the real harness. Each is marked in its own source file, and
+> [docs/methodology.md](docs/methodology.md) is the only place a live figure may be
+> introduced.
 
 ---
+
+## Live results
+
+`leg-01` runs the same task as `sim-cust-01` against a **real** Solari desktop VM:
+NORTHWIND 5250 as a curses application under `xterm` on an X display, driven with real
+X input, verified by reading the guest's own state file.
+
+| date | driver | agent | k | pass@1 | pass^k | void | steps | wall |
+| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 2026-09-05 | `live` | `scripted-keyboard` | 3 | **100%** | **100%** | 0/3 | 16 | ~31 s/trial |
+
+![A live observation from a Solari desktop VM](docs/images/frame-live-desktop.png)
+
+That is an actual frame from the run: window chrome, a compositor, a taskbar, Chrome
+behind it, and the credit limit field mid-edit. No character grid behind the pixels.
+
+Two things this establishes and two it does not. It establishes the platform path end to
+end — snapshot fork, desktop VM, X input, ground truth read from the guest filesystem —
+and that snapshot forks are genuinely isolated: three consecutive forks each booted clean
+and none saw the previous fork's writes. It does **not** establish anything about visual
+grounding (the entrant read the application's published text channel) or about any other
+application.
+
+It also produced the most instructive failure in the project. The first live attempt
+reached the commit keystroke on every trial and the record never changed: `xfce4-terminal`
+claims F10 as the GTK menu accelerator, and F10 is how this application commits. A
+benchmark that graded on the screen rather than on the database would have scored that
+as a pass.
+
+Reproduce it with a Solari key:
+
+```bash
+pnpm tsx scripts/seed-env.ts legacy-5250     # prints a snapshot id to pin
+bellwether run --driver live --agent scripted-keyboard --tasks leg-01 --k 3 --concurrency 1
+```
+
+> Solari plans cap concurrent sessions. `--concurrency 1` is required unless your cap is
+> higher; the driver turns the platform's error into that instruction rather than a stack
+> trace.
 
 ## The metrics, precisely
 
@@ -259,7 +297,8 @@ not. The suite is seven tasks, not seventy, against one application.
 | | |
 | --- | --- |
 | Tests | 84 TypeScript, 15 Python, 92% line coverage |
-| Verifier fixtures | 40, all asserting a verifier rejects a known-bad state |
+| Live tier | `leg-01` executed on Solari: pass^3 = 100%, 0 void |
+| Verifier fixtures | 43, all asserting a verifier rejects a known-bad state |
 | Calibration ceiling | `pass^5 = 100%`, 0 void trials, gated in CI |
 | Reproducibility | A clean clone reproduces every committed baseline |
 | Agent protocol | 1.0 — JSON Schema in [`packages/protocol/schema/`](packages/protocol/schema) |

@@ -25,7 +25,7 @@ export async function selfTestTask(task: Task): Promise<SelfTestCase[]> {
     const context = fixtureContext(fixture.truth(), {
       outcome: fixture.outcome ?? 'done',
       blocked: fixture.blocked ?? [],
-      statePath: task.env.statePath,
+      statePath: fixture.statePath ?? task.env.statePath,
       sqlStub: fixture.sqlStub,
     });
     const verdict = await task.verify(context);

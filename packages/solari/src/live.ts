@@ -1,4 +1,5 @@
 import { EnvironmentError } from '@bellwether/core';
+import { normalizeKey } from '@bellwether/protocol';
 import type {
   BrowserHandle,
   BrowserOptions,
@@ -13,82 +14,197 @@ import type {
 } from './types';
 
 /**
- * ============================ VERIFICATION STATUS ============================
- * This adapter is written against the published Solari SDK surface (sandboxes,
- * desktops, browsers; snapshot/fork; previewUrl; screenshot and input; streamUrl)
- * but has NOT been executed against the live service in this repository, because
- * no live run has been made yet. Treat every method here as unverified until
- * `pnpm bench:live` has produced a result and docs/methodology.md records it.
+ * Adapter for the real Solari platform.
  *
- * The simulator is the verified path. That distinction is deliberate and is the
- * reason the driver interface exists at all.
- * =============================================================================
+ * Verified against @solarisdk/sandbox 0.1.2 and @solarisdk/core: sandbox and desktop
+ * creation, the control channel, exec, files, preview URLs, snapshot and fork isolation
+ * all exercised live. The browser surface is the remaining unverified path and says so.
+ *
+ * Two things the SDK requires that are easy to miss, and that cost a debugging session
+ * each:
+ *
+ *   1. `create()` returns a handle whose control channel is not yet open. `commands.run`
+ *      works anyway (it has an HTTP fallback), but every filesystem call fails with
+ *      "Not connected" until `connect()` is awaited.
+ *   2. Concurrency is capped per plan. Forking a snapshot while the parent is still
+ *      alive raises ConcurrencyLimitError, so the runner must either kill as it goes or
+ *      run at a concurrency the plan allows.
  */
 
-/* Minimal structural types for the parts of the SDK we touch. Declared locally so
+const DEFAULT_BASE_URL = 'https://api.getsolari.com';
+
+/* Structural types for the parts of the SDK this adapter touches. Declared locally so
  * the package builds and typechecks with the optional peers absent. */
 
 interface SdkCommandResult {
-  stdout?: string;
-  stderr?: string;
-  exitCode?: number;
+  stdout: string;
+  stderr: string;
+  exitCode: number;
 }
 
 interface SdkFiles {
-  write(path: string, content: string): Promise<void>;
   readText(path: string): Promise<string>;
+  write(path: string, data: string): Promise<void>;
 }
 
-interface SdkSandbox {
-  id?: string;
-  commands: { run(command: string, options?: Record<string, unknown>): Promise<SdkCommandResult> };
+interface SdkSession {
+  readonly id: string;
+  connect(): Promise<void>;
+  commands: { run(cmd: string, opts?: Record<string, unknown>): Promise<SdkCommandResult> };
   files: SdkFiles;
-  previewUrl(port: number): Promise<string> | string;
-  snapshot(label: string): Promise<string> | string;
+  previewUrl(port: number): Promise<{ url: string; token?: string }>;
+  snapshot(name?: string): Promise<string>;
   kill(): Promise<void>;
 }
 
-interface SdkDesktop extends SdkSandbox {
-  streamUrl?: string | (() => Promise<string>);
-  screenshot(options?: { format?: string; quality?: number }): Promise<Buffer | string>;
-  exec(command: string, options?: Record<string, unknown>): Promise<SdkCommandResult>;
+interface SdkDesktop extends SdkSession {
+  readonly streamUrl: string;
+  exec(cmd: string, opts?: Record<string, unknown>): Promise<SdkCommandResult>;
   fs: SdkFiles;
+  screenshot(opts?: { format?: string; quality?: number }): Promise<Uint8Array>;
+  display: { size(): Promise<{ w: number; h: number }> };
   mouse: {
-    move(x: number, y: number, options?: Record<string, unknown>): Promise<void>;
-    click(x: number, y: number, options?: Record<string, unknown>): Promise<void>;
-    scroll(x: number, y: number, direction: string, amount: number): Promise<void>;
+    move(x: number, y: number, opts?: Record<string, unknown>): Promise<void>;
+    click(x: number, y: number, opts?: Record<string, unknown>): Promise<void>;
+    doubleClick(x: number, y: number, opts?: Record<string, unknown>): Promise<void>;
+    scroll(x: number, y: number, opts?: Record<string, unknown>): Promise<void>;
   };
-  keyboard: { type(text: string): Promise<void>; press(keys: string): Promise<void> };
+  keyboard: { type(text: string): Promise<void>; press(keys: string | string[]): Promise<void> };
 }
 
-interface SdkNamespace<T, O> {
-  create(options: O): Promise<T>;
+interface SdkSandboxClient {
+  create(opts: Record<string, unknown>): Promise<SdkSession>;
+  createDesktop(opts: Record<string, unknown>): Promise<SdkDesktop>;
 }
 
-async function loadModule<T>(specifier: string): Promise<T> {
+interface SdkSandboxModule {
+  SandboxClient: new (opts: { apiKey: string; baseUrl: string }) => SdkSandboxClient;
+}
+
+async function loadSandboxSdk(): Promise<SdkSandboxModule> {
   try {
-    return (await import(/* @vite-ignore */ specifier)) as T;
+    return (await import('@solarisdk/sandbox')) as unknown as SdkSandboxModule;
   } catch {
     throw new EnvironmentError(
-      `${specifier} is not installed. The live driver needs it: pnpm add -w ${specifier}`,
+      'the live driver needs @solarisdk/sandbox: pnpm add -w @solarisdk/sandbox',
     );
   }
 }
 
-function toBase64(png: Buffer | string): string {
-  return typeof png === 'string' ? png : png.toString('base64');
+/** The SDK's typed errors carry the only actionable diagnosis the platform gives. */
+function rethrow(error: unknown, what: string): never {
+  const name = error instanceof Error ? error.constructor.name : 'Error';
+  const message = error instanceof Error ? error.message : String(error);
+  if (name === 'ConcurrencyLimitError') {
+    throw new EnvironmentError(
+      `${what}: ${message}. Your plan caps concurrent sessions - rerun with --concurrency 1, or raise the cap.`,
+    );
+  }
+  if (name === 'AuthError') {
+    throw new EnvironmentError(`${what}: ${message}. Check SOLARI_API_KEY.`);
+  }
+  if (name === 'NoCapacityError' || name === 'PlanError') {
+    throw new EnvironmentError(`${what}: ${message}`);
+  }
+  throw new EnvironmentError(`${what}: ${name}: ${message}`);
 }
 
-class LiveDesktop implements DesktopHandle {
+/**
+ * X11 button codes for wheel events. The SDK expresses scroll direction through the
+ * button rather than a delta, which is the X convention and not the one the protocol
+ * uses, so the translation lives here.
+ */
+const SCROLL_BUTTON: Record<string, string> = {
+  up: 'wheelUp',
+  down: 'wheelDown',
+  left: 'wheelLeft',
+  right: 'wheelRight',
+};
+
+/** Bellwether key names to X keysyms. */
+function toKeysym(keys: string): string {
+  const normalized = normalizeKey(keys);
+  const parts = normalized.split('+');
+  const base = parts.pop() ?? '';
+  const named: Record<string, string> = {
+    Enter: 'Return',
+    Escape: 'Escape',
+    Tab: 'Tab',
+    Backspace: 'BackSpace',
+    Up: 'Up',
+    Down: 'Down',
+    Left: 'Left',
+    Right: 'Right',
+    Space: 'space',
+    Delete: 'Delete',
+  };
+  const keysym = named[base] ?? base;
+  // shift+Tab is ISO_Left_Tab on X, not a shifted Tab.
+  if (keysym === 'Tab' && parts.includes('shift')) return 'ISO_Left_Tab';
+  return [...parts, keysym].join('+');
+}
+
+class LiveSandbox implements MachineHandle {
+  constructor(protected readonly session: SdkSession) {}
+
+  get id(): string {
+    return this.session.id;
+  }
+
+  async exec(command: string, options?: ExecOptions): Promise<ExecResult> {
+    const result = await this.session.commands.run(command, {
+      args: options?.args,
+      cwd: options?.cwd,
+      env: options?.env,
+      timeoutMs: options?.timeoutMs,
+    });
+    return { stdout: result.stdout, stderr: result.stderr, exitCode: result.exitCode };
+  }
+
+  async writeFile(path: string, content: string): Promise<void> {
+    await this.session.files.write(path, content);
+  }
+
+  async readFile(path: string): Promise<string> {
+    return this.session.files.readText(path);
+  }
+
+  async previewUrl(port: number): Promise<string> {
+    return (await this.session.previewUrl(port)).url;
+  }
+
+  async snapshot(label: string): Promise<string> {
+    return this.session.snapshot(label);
+  }
+
+  async kill(): Promise<void> {
+    await this.session.kill();
+  }
+}
+
+class LiveDesktop extends LiveSandbox implements DesktopHandle {
   constructor(
-    readonly id: string,
-    readonly display: { width: number; height: number },
     private readonly vm: SdkDesktop,
-  ) {}
+    readonly display: { width: number; height: number },
+    /** Path the application publishes a text rendering to, when it publishes one. */
+    private readonly screenTextPath?: string,
+  ) {
+    super(vm);
+  }
 
   async frame(): Promise<Frame> {
     const png = await this.vm.screenshot({ format: 'png' });
-    return { pngB64: toBase64(png), width: this.display.width, height: this.display.height };
+    const frame: Frame = {
+      pngB64: Buffer.from(png).toString('base64'),
+      width: this.display.width,
+      height: this.display.height,
+    };
+    if (this.screenTextPath) {
+      // Environments may publish an accessibility channel the way envs/*/bw-fault
+      // publishes a fault hook. Agents that read it must declare that they did.
+      frame.screenText = await this.vm.fs.readText(this.screenTextPath).catch(() => undefined);
+    }
+    return frame;
   }
 
   async click(
@@ -96,10 +212,9 @@ class LiveDesktop implements DesktopHandle {
     y: number,
     options?: { button?: 'left' | 'right' | 'middle'; clicks?: number },
   ): Promise<void> {
-    await this.vm.mouse.click(x, y, {
-      button: options?.button ?? 'left',
-      clicks: options?.clicks ?? 1,
-    });
+    const opts = { button: options?.button ?? 'left' };
+    if ((options?.clicks ?? 1) >= 2) await this.vm.mouse.doubleClick(x, y, opts);
+    else await this.vm.mouse.click(x, y, opts);
   }
 
   async move(x: number, y: number): Promise<void> {
@@ -111,7 +226,7 @@ class LiveDesktop implements DesktopHandle {
   }
 
   async press(keys: string): Promise<void> {
-    await this.vm.keyboard.press(keys);
+    await this.vm.keyboard.press(toKeysym(keys));
   }
 
   async scroll(
@@ -120,89 +235,45 @@ class LiveDesktop implements DesktopHandle {
     direction: 'up' | 'down' | 'left' | 'right',
     amount: number,
   ): Promise<void> {
-    await this.vm.mouse.scroll(x, y, direction, amount);
+    const button = SCROLL_BUTTON[direction] ?? 'wheelDown';
+    for (let tick = 0; tick < amount; tick++) {
+      await this.vm.mouse.scroll(x, y, { button });
+    }
   }
 
   async streamUrl(): Promise<string | undefined> {
-    const value = this.vm.streamUrl;
-    if (typeof value === 'function') return value();
-    return value;
+    return this.vm.streamUrl;
   }
 
-  async exec(command: string, options?: ExecOptions): Promise<ExecResult> {
-    const result = await this.vm.exec(command, { ...options });
-    return {
-      stdout: result.stdout ?? '',
-      stderr: result.stderr ?? '',
-      exitCode: result.exitCode ?? 0,
-    };
+  override async exec(command: string, options?: ExecOptions): Promise<ExecResult> {
+    const result = await this.vm.exec(command, {
+      args: options?.args,
+      cwd: options?.cwd,
+      timeoutMs: options?.timeoutMs,
+    });
+    return { stdout: result.stdout, stderr: result.stderr, exitCode: result.exitCode };
   }
 
-  async writeFile(path: string, content: string): Promise<void> {
+  override async writeFile(path: string, content: string): Promise<void> {
     await this.vm.fs.write(path, content);
   }
 
-  async readFile(path: string): Promise<string> {
+  override async readFile(path: string): Promise<string> {
     return this.vm.fs.readText(path);
-  }
-
-  async previewUrl(port: number): Promise<string> {
-    return this.vm.previewUrl(port);
-  }
-
-  async snapshot(label: string): Promise<string> {
-    return this.vm.snapshot(label);
-  }
-
-  async kill(): Promise<void> {
-    await this.vm.kill();
-  }
-}
-
-class LiveSandbox implements MachineHandle {
-  constructor(
-    readonly id: string,
-    private readonly sbx: SdkSandbox,
-  ) {}
-
-  async exec(command: string, options?: ExecOptions): Promise<ExecResult> {
-    const result = await this.sbx.commands.run(command, { ...options });
-    return {
-      stdout: result.stdout ?? '',
-      stderr: result.stderr ?? '',
-      exitCode: result.exitCode ?? 0,
-    };
-  }
-
-  async writeFile(path: string, content: string): Promise<void> {
-    await this.sbx.files.write(path, content);
-  }
-
-  async readFile(path: string): Promise<string> {
-    return this.sbx.files.readText(path);
-  }
-
-  async previewUrl(port: number): Promise<string> {
-    return this.sbx.previewUrl(port);
-  }
-
-  async snapshot(label: string): Promise<string> {
-    return this.sbx.snapshot(label);
-  }
-
-  async kill(): Promise<void> {
-    await this.sbx.kill();
   }
 }
 
 export interface LiveDriverOptions {
   apiKey?: string;
+  baseUrl?: string;
 }
 
 export class LiveDriver implements SolariDriver {
   readonly name = 'live';
   readonly metered = true;
   private readonly apiKey: string;
+  private readonly baseUrl: string;
+  private client?: SdkSandboxClient;
 
   constructor(options: LiveDriverOptions = {}) {
     const apiKey = options.apiKey ?? process.env.SOLARI_API_KEY;
@@ -212,34 +283,19 @@ export class LiveDriver implements SolariDriver {
       );
     }
     this.apiKey = apiKey;
+    this.baseUrl = options.baseUrl ?? process.env.SOLARI_BASE_URL ?? DEFAULT_BASE_URL;
   }
 
-  async createSandbox(options: SandboxOptions): Promise<MachineHandle> {
-    const mod = await loadModule<{ sandboxes: SdkNamespace<SdkSandbox, Record<string, unknown>> }>(
-      '@solarisdk/sandbox',
-    );
-    const sbx = await mod.sandboxes.create(this.machineOptions(options));
-    return new LiveSandbox(sbx.id ?? 'sandbox', sbx);
-  }
-
-  async createDesktop(options: DesktopOptions): Promise<DesktopHandle> {
-    const mod = await loadModule<{ desktops: SdkNamespace<SdkDesktop, Record<string, unknown>> }>(
-      '@solarisdk/desktop',
-    );
-    const resolution = options.resolution ?? '1280x720';
-    const [width, height] = resolution.split('x').map(Number);
-    const vm = await mod.desktops.create({ ...this.machineOptions(options), resolution });
-    return new LiveDesktop(vm.id ?? 'desktop', { width: width ?? 1280, height: height ?? 720 }, vm);
-  }
-
-  async createBrowser(options: BrowserOptions): Promise<BrowserHandle> {
-    const { createLiveBrowser } = await import('./live-browser');
-    return createLiveBrowser(this.apiKey, options);
+  private async sandboxClient(): Promise<SdkSandboxClient> {
+    if (!this.client) {
+      const { SandboxClient } = await loadSandboxSdk();
+      this.client = new SandboxClient({ apiKey: this.apiKey, baseUrl: this.baseUrl });
+    }
+    return this.client;
   }
 
   private machineOptions(options: SandboxOptions): Record<string, unknown> {
     return {
-      apiKey: this.apiKey,
       template: options.template,
       cpu: options.cpu ?? 2,
       memMb: options.memMb ?? 2048,
@@ -247,6 +303,44 @@ export class LiveDriver implements SolariDriver {
       fromSnapshot: options.fromSnapshot,
       lifecycle: { onTimeout: options.onTimeout ?? 'kill' },
     };
+  }
+
+  async createSandbox(options: SandboxOptions): Promise<MachineHandle> {
+    const client = await this.sandboxClient();
+    try {
+      const session = await client.create(this.machineOptions(options));
+      // Filesystem calls travel over the control channel, which create() leaves closed.
+      await session.connect();
+      return new LiveSandbox(session);
+    } catch (error) {
+      rethrow(error, `creating a sandbox from template "${options.template}"`);
+    }
+  }
+
+  async createDesktop(options: DesktopOptions): Promise<DesktopHandle> {
+    const client = await this.sandboxClient();
+    try {
+      const vm = await client.createDesktop({
+        ...this.machineOptions(options),
+        ...(options.resolution ? { resolution: options.resolution } : {}),
+      });
+      await vm.connect();
+      // The platform may clamp the requested resolution, and an agent that calibrates
+      // from a display it was told about rather than the one it has will mis-aim every
+      // click. Ask the VM.
+      const size = await vm.display.size();
+      return new LiveDesktop(vm, { width: size.w, height: size.h }, options.screenTextPath);
+    } catch (error) {
+      rethrow(error, `creating a desktop from template "${options.template}"`);
+    }
+  }
+
+  async createBrowser(_options: BrowserOptions): Promise<BrowserHandle> {
+    // VERIFICATION STATUS: unexecuted. The browser surface has not been run against
+    // the live service; sandboxes and desktops have.
+    throw new EnvironmentError(
+      'the live browser surface is not implemented against @solarisdk/browser yet. Desktop and sandbox surfaces are.',
+    );
   }
 
   async close(): Promise<void> {

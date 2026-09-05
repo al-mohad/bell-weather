@@ -21,6 +21,18 @@ export function parseGoal(goalText: string): Goal {
   };
 }
 
+/**
+ * How the flow moves the cursor between fields.
+ *
+ * `click` aims at a pixel derived from the display geometry - fine on a surface that is
+ * exactly the character grid, useless on a real desktop where the terminal sits in a
+ * window with a title bar at an arbitrary offset.
+ *
+ * `keyboard` presses Tab until the screen says the right field is focused. Slower by a
+ * few steps and independent of geometry entirely, which is what a live GUI needs.
+ */
+export type FocusStrategy = 'click' | 'keyboard';
+
 export interface PolicyStep {
   action: Action;
   /** Field the action was aimed at, if any. Used by the flaky wrapper. */
@@ -47,6 +59,7 @@ export class Erp5250Policy {
   constructor(
     private readonly goal: Goal,
     display: Display = { width: 1280, height: 768 },
+    private readonly focus: FocusStrategy = 'click',
   ) {
     this.cell = cellFromDisplay(display);
   }
@@ -186,6 +199,14 @@ export class Erp5250Policy {
    */
   private setField(screen: Screen, field: string, value: string): PolicyStep {
     if (screen.focused !== field) {
+      if (this.focus === 'keyboard') {
+        // Fields cycle, and the screen reports which one holds the cursor, so Tab
+        // always reaches the target and this terminates rather than guessing.
+        return {
+          action: { kind: 'key', keys: 'Tab', rationale: `move focus toward ${field}` },
+          field,
+        };
+      }
       const { x, y } = fieldCenter(screen.kind, field, this.cell);
       return {
         action: { kind: 'click', x, y, button: 'left', clicks: 1, rationale: `focus ${field}` },

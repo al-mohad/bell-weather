@@ -20,6 +20,8 @@ export interface EnvSpec {
   boot?: string[];
   /** Where the verifier reads application state. Defaults to the simulator path. */
   statePath?: string;
+  /** Path the application publishes a text rendering of its screen to, if any. */
+  screenTextPath?: string;
   /** Set for real Postgres-backed environments so `ctx.sql()` works. */
   psql?: { database: string; user?: string };
   /** Snapshot id from suite.lock.json. Pinned, never resolved at runtime. */
@@ -33,6 +35,8 @@ export interface FixtureCase {
   blocked?: BlockedAction[];
   /** Canned rows for tasks whose verifier reads a real database. */
   sqlStub?: (query: string) => unknown[];
+  /** Overrides the task's state path when the fixture models a different environment. */
+  statePath?: string;
 }
 
 /**

@@ -7,4 +7,3 @@
 declare module '@solarisdk/sandbox';
 declare module '@solarisdk/desktop';
 declare module '@solarisdk/browser';
-declare module 'playwright-core';

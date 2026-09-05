@@ -10,20 +10,25 @@ forked per trial. Environments are **not** built during a benchmark run — see
 | --- | --- | --- | --- |
 | `sim-erp5250` | desktop | **verified** — deterministic, in-process, no key, renders real glyphs | 7 |
 | `odoo-18-seeded` | browser | recipe written, **never seeded or executed** | 1 |
-| `legacy-5250` | desktop | recipe written; the application's logic is self-tested, the **image has never been built** | 0 |
+| `legacy-5250` | desktop | **verified live** — seeded on a Solari desktop VM, snapshot pinned in `suite.lock.json` | 1 |
 | `osticket` | browser | planned | 0 |
 
 The simulator lives in `packages/solari/src/sim/`, not here, because it is code rather
 than a container. Everything in this directory targets `--driver live`.
 
-`legacy-5250` is the environment that would let a result say something the simulator
-cannot: Xvfb, a real terminal emulator and a real curses application, driven with
+`legacy-5250` is the environment that lets a result say something the simulator cannot: Xvfb, a real terminal emulator and a real curses application, driven with
 xdotool and observed only through screenshots — no character grid behind it. The
 application (`northwind5250.py`) implements the same screens, field positions and
 commit semantics as the simulator, so every verifier works against it unchanged, and
-its logic is proved by a self-test that runs during the image build. The image itself
-has not been built here. See [ADR-0007](../docs/adr/0007-the-simulator-renders-real-glyphs.md)
-for why the in-process surface was improved instead.
+its logic is proved by a self-test. It has been seeded and run: see the live row in
+[docs/methodology.md](../docs/methodology.md).
+
+It runs under `xterm`, not the desktop template's `xfce4-terminal`. GTK claims F10 as
+the menu accelerator and F10 is how this application commits a record, so under
+xfce4-terminal every trial reached the commit and nothing was written — a silent failure
+that only ground-truth verification catches. The Dockerfile here builds the same
+environment for other hosts; `scripts/seed-env.ts legacy-5250` is what was actually
+executed.
 
 ## The contract
 

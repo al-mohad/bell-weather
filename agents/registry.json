@@ -32,6 +32,14 @@
         "BELLWETHER_MODEL_SCRIPT": "fixtures/sim-cust-01.script.jsonl"
       },
       "description": "The same agent with a canned model. Verifies the whole Python agent through the real harness with no key and no spend; only solves sim-cust-01."
+    },
+    "scripted-keyboard": {
+      "command": "node",
+      "args": ["--import", "tsx", "agents/scripted-baseline/src/main.ts"],
+      "env": {
+        "BELLWETHER_FOCUS": "keyboard"
+      },
+      "description": "The scripted flow with Tab-based focus instead of clicks. Geometry-independent, which is what a real desktop needs."
     }
   }
 }

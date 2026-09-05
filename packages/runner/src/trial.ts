@@ -82,7 +82,11 @@ async function provision(task: Task, driver: SolariDriver): Promise<Provisioned>
   };
 
   if (task.surface === 'desktop') {
-    const desktop = await driver.createDesktop({ ...base, resolution: task.env.resolution });
+    const desktop = await driver.createDesktop({
+      ...base,
+      resolution: task.env.resolution,
+      screenTextPath: task.env.screenTextPath,
+    });
     await runBootCommands(task, desktop);
     return {
       surface: new DriverSurface(desktop, desktop),

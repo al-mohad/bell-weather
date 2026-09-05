@@ -5,28 +5,24 @@
 Every number this repository has produced comes from `--driver sim`. Read this list
 before the results, not after.
 
-1. **No vision agent has been run.** The `sim` surface now renders real glyphs — an
-   80×24 grid in an 8×16 bitmap font at 2×, legible in `docs/images/` — so a vision
-   agent *can* be pointed at it. None has been. Every number in `results/` was produced
-   by an entrant reading `observation.screenText`, and reading a character grid is not
+1. **No vision agent has been run.** Both surfaces now produce frames a vision agent
+   can read - the simulator renders real glyphs, and the live desktop returns real
+   screenshots of a real X session. None has been run. Every number in `results/` was
+   produced by an entrant reading a text channel, and reading a character grid is not
    the same skill as reading a screen.
 
-   Even once one has been run, the ceiling on what this surface can show is a rendered
-   terminal: no anti-aliasing, no window chrome, no compositor, no unfamiliar font. It
-   is a real raster, not a real desktop. `envs/legacy-5250/` holds the X-based recipe
-   that would close that gap (Xvfb, a terminal emulator, xdotool) and it has never been
-   built or executed. See [ADR-0007](adr/0007-the-simulator-renders-real-glyphs.md).
-2. **No live run has been made.** The live Solari driver, the Odoo environment and the
-   X-based `legacy-5250` recipe are written and unexecuted; their code carries a
-   verification-status banner. No live figure appears anywhere.
+2. **The live tier is one task on one application.** `leg-01` has been executed against
+   real Solari infrastructure and its result is recorded below. That establishes the
+   platform path end to end - snapshot fork, desktop VM, X input, ground truth read from
+   the guest filesystem - and nothing more. The browser surface and the Odoo environment
+   remain unexecuted, and their code says so.
 
-   The `claude-cua` reference agent is a partial exception worth stating precisely: its
-   protocol loop, action mapping, coordinate clamping, usage accounting, refusal
-   handling and abstention are verified — 15 unit tests plus three trials through the
-   real harness against the real verifier, offline, via a scripted model transport. What
-   has never run is the API call itself. So "unverified" there means the request and
-   response shape, not the agent.
-3. **Seven tasks is a smoke test, not a benchmark.** They cover lookup-then-edit,
+   The live desktop's text channel is published by the application itself, to
+   `/var/lib/simapp/screen.txt`, the way the environments in `envs/` publish a
+   `bw-fault` hook. It is a property of that environment, not of the platform, and an
+   agent that reads it declares `text-screen`.
+
+3. **Eight tasks is a smoke test, not a benchmark.** They cover lookup-then-edit,
    cross-screen transcription, two interruption modes, abstention and one safety case.
    They do not cover multi-application workflows, long-horizon tasks, search and
    pagination, file handling, or anything time- or locale-dependent.
@@ -144,7 +140,9 @@ that has been cited.
 | date | driver | agents | k | seed | note |
 | --- | --- | --- | --- | --- | --- |
 | 2026-09-02 | sim | scripted, flaky, compiled | 5 | 20260902 | First baseline, ink-map frames. Superseded. |
-| 2026-09-03 | sim | scripted, flaky, compiled | 5 | 20260902 | Current baseline in `results/`. Re-run after the surface began rendering real glyphs; **every metric was identical to the 2026-09-02 run**, which is the expected result when only the pixels change and every entrant reads `screenText`. Simulator only; no vision agent. |
+| 2026-09-05 | **live** | scripted-keyboard | 3 | default | **First live run.** `leg-01` on a Solari desktop VM: pass@1 100%, pass^3 100%, 0 void, 16 steps and ~31s per trial. Snapshot `snap_dl7hv3j3a0i1`, pinned in `suite.lock.json`. Establishes the platform path; not a capability result. |
+| 2026-09-03 | sim | scripted, flaky, compiled | 5 | 20260902 | Current simulator baseline in `results/`. Re-run after the surface began rendering real glyphs; **every metric was identical to the 2026-09-02 run**, which is the expected result when only the pixels change and every entrant reads `screenText`. Simulator only; no vision agent. |
 
-*No live run has been recorded. This table is the only place a live figure may be
-introduced, and it must cite the `results/` file that backs it.*
+*This table is the only place a live figure may be introduced, and it must cite the
+`results/` file that backs it. The live row above is backed by
+`results/2026-09-05-live-leg-01-scripted-keyboard.json`.*

@@ -8,6 +8,13 @@
       "snapshotId": null,
       "note": "The simulator seeds deterministically from packages/solari/src/sim/data.ts, so no snapshot id is needed. Its determinism is asserted by packages/solari/test/sim.test.ts."
     },
+    "legacy-5250": {
+      "kind": "solari-desktop",
+      "template": "default",
+      "snapshotId": "snap_dl7hv3j3a0i1",
+      "seededAt": "2026-09-05",
+      "note": "NORTHWIND 5250 running under xterm on the desktop template's X display. Seeded by `pnpm tsx scripts/seed-env.ts legacy-5250`. xfce4-terminal is deliberately not used: it swallows F10 as the GTK menu accelerator, and F10 is how this application commits a record."
+    },
     "odoo-18-seeded": {
       "kind": "solari-sandbox",
       "snapshotId": null,

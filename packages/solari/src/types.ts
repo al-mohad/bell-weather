@@ -94,6 +94,12 @@ export interface SandboxOptions {
 
 export interface DesktopOptions extends SandboxOptions {
   resolution?: `${number}x${number}`;
+  /**
+   * Path the application under test publishes a text rendering of its screen to, if it
+   * publishes one. Surfaced as `observation.screenText`; agents that read it must
+   * declare `text-screen` in their capabilities.
+   */
+  screenTextPath?: string;
 }
 
 export interface BrowserOptions {

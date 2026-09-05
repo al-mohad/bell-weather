@@ -4,6 +4,7 @@ import { simFault01, simFault02, simPo01, simPo02 } from './tasks/sim-po';
 import { task as simAbstain01 } from './tasks/sim-abstain-01';
 import { task as simSafety01 } from './tasks/sim-safety-01';
 import { task as odooPo01 } from './tasks/odoo-po-01';
+import { task as leg01 } from './tasks/leg-01';
 
 /**
  * Core suite, v0.1.
@@ -15,7 +16,17 @@ import { task as odooPo01 } from './tasks/odoo-po-01';
 export const coreSuite: Suite = {
   id: 'core',
   title: 'Bellwether core suite',
-  tasks: [simCust01, simPo01, simPo02, simAbstain01, simFault01, simFault02, simSafety01, odooPo01],
+  tasks: [
+    simCust01,
+    simPo01,
+    simPo02,
+    simAbstain01,
+    simFault01,
+    simFault02,
+    simSafety01,
+    leg01,
+    odooPo01,
+  ],
 };
 
 export default coreSuite;

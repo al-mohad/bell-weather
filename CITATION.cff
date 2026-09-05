@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: 'If you cite a Bellwether result, cite the suite version, driver, agent, k and run seed alongside it - a number without those six coordinates is not reproducible.'
+title: 'Bellwether: a reproducible reliability benchmark for computer-use agents on legacy enterprise software'
+abstract: >-
+  Bellwether measures whether a computer-use agent completes a task on every
+  independent attempt from a byte-identical starting state, rather than whether it
+  can complete it once. Trials fork a pinned snapshot, verdicts come from the
+  application's own database rather than a language-model judge, every verifier ships
+  fixtures proving it can fail, and a deterministic in-process simulator lets the whole
+  suite run offline with no API key. It also compiles solved traces into deterministic
+  flows and MCP tools, so the agent and the compiled flow can be scored side by side.
+type: software
+license: Apache-2.0
+version: 0.1.0
+date-released: '2026-09-03'
+repository-code: 'https://github.com/al-mohad/bell-weather'
+keywords:
+  - computer-use-agents
+  - benchmark
+  - reliability
+  - reproducibility
+  - legacy-systems
+  - robotic-process-automation
+authors:
+  # Replace with your name and ORCID before publishing; an entity author keeps this
+  # file valid and citable in the meantime.
+  - name: 'The Bellwether Authors'

@@ -1,16 +1,42 @@
+<!--
+  Repository description, topics and social preview text live in
+  docs/github-about.md - keeping them in the repo stops the About field and the README
+  from drifting apart.
+-->
+
 # Bellwether
 
-**A reproducible reliability benchmark for computer-use agents on legacy enterprise software — and a compiler that turns the flows they solve into deterministic tools.**
+[![CI](https://github.com/al-mohad/bell-weather/actions/workflows/ci.yml/badge.svg)](https://github.com/al-mohad/bell-weather/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/license-Apache--2.0-0F6B6B)](LICENSE)
+[![Node](https://img.shields.io/badge/node-%E2%89%A522.11-0F6B6B)](.nvmrc)
+[![Agent protocol](https://img.shields.io/badge/agent%20protocol-1.0-97600A)](packages/protocol/schema)
+[![Verifier fixtures](https://img.shields.io/badge/verifier%20fixtures-40%2F40-0F6B6B)](docs/methodology.md#how-not-to-fool-yourself)
+
+**A reproducible reliability benchmark for computer-use agents on legacy enterprise
+software — and a compiler that turns the flows they solve into deterministic tools.**
 
 Most computer-use demos answer "can it do the task?". Operations needs a different
 number: *does it do the task every single time, from an identical starting state,
 without leaving a mess?* Bellwether measures that, publishes the trace behind every
-verdict, and ships the whole thing so a stranger can reproduce it in one command
-with no API key.
+verdict, and ships the whole thing so a stranger can reproduce it in one command with
+no API key.
 
 ```bash
 pnpm install && pnpm bench:sim
 ```
+
+📄 **[Product and technical overview (PDF)](docs/bellwether-technical-overview.pdf)** —
+the whole system in one document: design, metrics, results, methodology, threat model.
+
+---
+
+## Contents
+
+- [The result](#the-result) · [What the agent sees](#what-the-agent-sees)
+- [Why this shape](#why-this-shape) · [What is in the box](#what-is-in-the-box)
+- [Quickstart](#quickstart) · [Run your own agent](#run-your-own-agent) · [Point a vision agent at it](#point-a-vision-agent-at-it) · [Run against real Solari infrastructure](#run-against-real-solari-infrastructure)
+- [The metrics, precisely](#the-metrics-precisely) · [Compiling a solved flow into a tool](#compiling-a-solved-flow-into-a-tool)
+- [Documentation](#documentation) · [Status](#status) · [Contributing](#contributing) · [Citing](#citing) · [Licence](#licence)
 
 ---
 
@@ -53,13 +79,13 @@ Three things worth taking away:
    times. The interruption tiers are where the agent earns its place back.
 
 \* `compiled` passes `sim-abstain-01` for the wrong reason: no flow exists for that
-task, so it abstains, and abstaining is the correct answer. This is exactly the kind
-of artifact a benchmark must disclose rather than bank — see
+task, so it abstains, and abstaining is the correct answer. This is exactly the kind of
+artifact a benchmark must disclose rather than bank — see
 [docs/methodology.md](docs/methodology.md#how-not-to-fool-yourself).
 
 ---
 
-## What the agent actually sees
+## What the agent sees
 
 ![A frame from the vendor quotes screen](docs/images/frame-quotes.png)
 
@@ -107,6 +133,8 @@ agents/               scripted, flaky, compiled, and a Claude computer-use refer
 envs/                 Recipes for the real environments (Odoo, osTicket, 5250)
 ```
 
+---
+
 ## Quickstart
 
 Requires Node ≥ 22.11 and pnpm 11. Nothing else — no API key, no Docker, no network.
@@ -120,8 +148,8 @@ pnpm bench:compiled        # compiled flows vs interruptions (pass^5 71%)
 open .bellwether/curve/index.html
 ```
 
-Those three scripts are pinned to seed `20260902`, so they reproduce the committed
-numbers in [`results/`](results/) exactly. If they do not, that is a bug worth an issue.
+Those scripts are pinned to seed `20260902`, so they reproduce the committed numbers in
+[`results/`](results/) exactly. If they do not, that is a bug worth an issue.
 
 Every trial writes a directory you can open: `meta.json`, `trace.jsonl`, one PNG per
 step, the agent's stderr, and the verifier's verdict. The report links to each one.
@@ -171,6 +199,8 @@ bellwether run --driver live --agent claude-cua --k 5 \
 > abstraction exists at all. Do not cite a live number until
 > [docs/methodology.md](docs/methodology.md) records one.
 
+---
+
 ## The metrics, precisely
 
 | metric | definition |
@@ -205,23 +235,54 @@ at the flow compiled from `sim-po-01`, because they drive the identical applicat
 with interruptions added, and that is what makes their 0/5 meaningful. Regenerate the
 lot with `pnpm bench:sim && pnpm flows`.
 
+---
+
 ## Documentation
 
-- [Architecture](docs/architecture.md) — how a trial actually runs, end to end
-- [Methodology](docs/methodology.md) — **limitations first**, and how not to fool yourself
-- [Threat model](docs/threat-model.md) — what this repo protects and what it does not
-- [Add an agent](docs/add-an-agent.md) · [Add a task](docs/add-a-task.md)
-- [Decision records](docs/adr/) — why the agent boundary is a process, why no LLM judge, and five more
+| document | what it covers |
+| --- | --- |
+| [Technical overview (PDF)](docs/bellwether-technical-overview.pdf) | The whole product in one document — for a reader who wants it away from the terminal |
+| [Architecture](docs/architecture.md) | How a trial actually runs, end to end, and the four boundaries that matter |
+| [Methodology](docs/methodology.md) | **Limitations first**, what a result means, and how not to fool yourself |
+| [Threat model](docs/threat-model.md) | Assets, trust boundaries, and what this repo protects — and does not |
+| [Add an agent](docs/add-an-agent.md) | The stdio contract, in about 40 lines, in any language |
+| [Add a task](docs/add-a-task.md) | Writing a verifier that can fail, and the fixtures that prove it |
+| [Decision records](docs/adr/) | Seven ADRs: why the agent boundary is a process, why no LLM judge, and five more |
+| [Environments](envs/README.md) | Real application recipes and the `bw-fault` hook contract |
+| [Repository metadata](docs/github-about.md) | Description, topics and release-note template |
 
 ## Status
 
-Pre-1.0 and honest about it. The simulator path is verified; the live path is not.
-The suite is seven tasks, not seventy, against one application. See
-[docs/methodology.md](docs/methodology.md) for the full list of what these numbers do
-and do not support — limitations first.
+Pre-1.0 and honest about it. The simulator path is verified end to end; the live path is
+not. The suite is seven tasks, not seventy, against one application.
+
+| | |
+| --- | --- |
+| Tests | 84 TypeScript, 15 Python, 92% line coverage |
+| Verifier fixtures | 40, all asserting a verifier rejects a known-bad state |
+| Calibration ceiling | `pass^5 = 100%`, 0 void trials, gated in CI |
+| Reproducibility | A clean clone reproduces every committed baseline |
+| Agent protocol | 1.0 — JSON Schema in [`packages/protocol/schema/`](packages/protocol/schema) |
+
+See [docs/methodology.md](docs/methodology.md) for the full list of what these numbers
+do and do not support — limitations first.
+
+## Contributing
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) first. Two rules are not negotiable: every
+verifier must be able to fail, and no number is published that the harness did not
+produce. `pnpm check` runs the same gate CI does.
+
+Security issues go through [SECURITY.md](SECURITY.md), not the public tracker.
+
+## Citing
+
+If you cite a result, cite its six coordinates — suite version, driver, agent, k, run
+seed and `suite.lock.json` — because a number without them is not reproducible.
+[`CITATION.cff`](CITATION.cff) has the machine-readable form.
 
 ## Licence
 
-Apache-2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE) — the applications under test
-in `envs/` are third-party software under their own licences and are not redistributed
-here.
+Apache-2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE) — the applications under test in
+`envs/` are third-party software under their own licences and are not redistributed
+here, and the simulator's bitmap font is Spleen under BSD-2-Clause.

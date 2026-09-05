@@ -6,3 +6,6 @@ coverage/
 .env
 .env.local
 .DS_Store
+
+# Fetched on demand by scripts/build-pdf.mjs
+docs/vendor/

@@ -24,8 +24,8 @@ importers:
         specifier: ^9.39.1
         version: 9.39.5
       '@solarisdk/sandbox':
-        specifier: 0.1.2
-        version: 0.1.2
+        specifier: 0.1.3
+        version: 0.1.3
       '@types/node':
         specifier: ^22.18.9
         version: 22.20.1
@@ -905,12 +905,20 @@ packages:
     resolution: {integrity: sha512-uuk4J3a4riJb9XShWkj7rFF4S++/rjxACxFAIdE8zlukiIkQmPY2+dnyo8gXVSdliJvbdw4BaWDzQadp9FQ9Bg==}
     engines: {node: '>=18'}
 
+  '@solarisdk/core@0.1.3':
+    resolution: {integrity: sha512-JA5W2lH1rfmgWFzl5HPVnejPL/YCHyjLDlc7fIf7M/LcEnflHcLlae4bCNL4SktEdu/OZ83A+YR2Hf2kI7bnGA==}
+    engines: {node: '>=18'}
+
   '@solarisdk/desktop@0.1.2':
     resolution: {integrity: sha512-wKVaVAJM88Qpj0p9PZLYFdfr1Iv1phzB0KuwU5v1PVK/79No3xHYCzLQAGLH2phQpuhoOE1Xj6zRHbLcJ++MLw==}
     engines: {node: '>=18'}
 
   '@solarisdk/sandbox@0.1.2':
     resolution: {integrity: sha512-sMWR7EnSpKvF8jEHPh3aZaGOWl814sHS1ALNSojee4N7H45IGle365IfFv2ulkaBmWY3ai4w7GOHbC9nV8Jk9w==}
+    engines: {node: '>=18'}
+
+  '@solarisdk/sandbox@0.1.3':
+    resolution: {integrity: sha512-3Y7A8zQrF9OplW7K8073arOW4Yg/lZffOuzHtrOIqLzTnepzXzyPHrPbMVGyV6HQNKm1yq/4ZqgtZqDadKASrA==}
     engines: {node: '>=18'}
 
   '@types/chai@5.2.3':
@@ -2601,6 +2609,13 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
+  '@solarisdk/core@0.1.3':
+    dependencies:
+      ws: 8.21.3
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
   '@solarisdk/desktop@0.1.2':
     dependencies:
       '@solarisdk/core': 0.1.2
@@ -2611,6 +2626,13 @@ snapshots:
   '@solarisdk/sandbox@0.1.2':
     dependencies:
       '@solarisdk/core': 0.1.2
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
+  '@solarisdk/sandbox@0.1.3':
+    dependencies:
+      '@solarisdk/core': 0.1.3
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate

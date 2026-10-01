@@ -65,7 +65,7 @@ jobs:
           retention-days: 90
 
       - name: Publish the report
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: .bellwether/nightly
 

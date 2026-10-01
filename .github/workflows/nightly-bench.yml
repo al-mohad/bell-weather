@@ -58,7 +58,7 @@ jobs:
             --out .bellwether/nightly
 
       - name: Keep the cassette so this run becomes a CI regression test
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: nightly-cassette
           path: .bellwether/nightly/cassette.jsonl
